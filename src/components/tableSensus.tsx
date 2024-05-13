@@ -7,15 +7,18 @@ interface TableProps {
 
 const CustomTable: React.FC<TableProps> = ({ data }) => {
     return (
-        <table style={{ border: '1px solid black', borderCollapse: 'collapse' }}>
+        <table style={{borderCollapse: 'collapse', margin: 'auto'}}>
             <thead >
-                <tr style={{ backgroundColor: "orange" }}>
-                    <th style={{ border: '1px solid black', padding: '8px',fontSize: '12px' }}>NAMA</th>
-                    <th style={{ border: '1px solid black', padding: '8px',fontSize: '12px' }}>MINGGU PERTAMA</th>
-                    <th style={{ border: '1px solid black', padding: '8px',fontSize: '12px' }}>MINGGU KEDUA</th>
-                    <th style={{ border: '1px solid black', padding: '8px',fontSize: '12px' }}>MINGGU KETIGA</th>
-                    <th style={{ border: '1px solid black', padding: '8px',fontSize: '12px' }}>MINGGU KEEMPAT</th>
-                    <th style={{ border: '1px solid black', padding: '8px',fontSize: '12px' }}>MINGGU KELIMA</th>
+                {/* <div style={{textAlign: 'center' }}> */}
+                    <h4 style={{flex:1}}>ABSENSI KELAPA DUA</h4>
+                {/* </div> */}
+                <tr style={{ backgroundColor: "orange" , border: '1px solid black',  }}>
+                    <th style={{ border: '1px solid black', padding: '8px', fontSize: '12px' }}>NAMA</th>
+                    <th style={{ border: '1px solid black', padding: '8px', fontSize: '12px' }}>MINGGU PERTAMA</th>
+                    <th style={{ border: '1px solid black', padding: '8px', fontSize: '12px' }}>MINGGU KEDUA</th>
+                    <th style={{ border: '1px solid black', padding: '8px', fontSize: '12px' }}>MINGGU KETIGA</th>
+                    <th style={{ border: '1px solid black', padding: '8px', fontSize: '12px' }}>MINGGU KEEMPAT</th>
+                    <th style={{ border: '1px solid black', padding: '8px', fontSize: '12px' }}>MINGGU KELIMA</th>
 
                     {/* Tambahkan header kolom lebih sesuai kebutuhan */}
                 </tr>
