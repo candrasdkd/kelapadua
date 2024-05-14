@@ -6,14 +6,20 @@ import { MdPrint } from "react-icons/md";
 import { IoChevronBackCircle } from "react-icons/io5";
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-
+interface DataItem {
+    UUID: string;
+    NAMA: string;
+    KELOMPOK: string;
+    // Add other fields as necessary
+}
 
 const PDFGenerator = () => {
     const { id } = useParams();
     const componentRef = useRef<HTMLTableElement>(null);
     const onBeforeGetContentResolve = useRef<Function | null>(null);
-    const [loading, setLoading] = useState(false);
-    const [showPrint, setShowPrint] = useState(false)
+    const [data, setData] = useState<DataItem[]>([]);
+    const [loading, setLoading] = useState<boolean>(false);
+    const [showPrint, setShowPrint] = useState<boolean>(false)
     const [text, setText] = useState("teks lama membosankan");
 
     const handleAfterPrint = useCallback(() => {
@@ -61,30 +67,63 @@ const PDFGenerator = () => {
             </button>
         </div>
     }
-    const filteredData = DATA.filter(item => item.KELOMPOK === `Kelompok ${id}`);
+    const handleDownload = (() => {
+        setLoading(true)
+        fetch('https://sheetdb.io/api/v1/uijf2hx2kvi0k')
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then((data) => {
+                let filteredData = data.filter((item: DataItem) => item.KELOMPOK === `Kelompok ${id}`);
+                setData(filteredData);
+                setLoading(false);
+            })
+            .catch((error) => {
+                setLoading(false);
+            });
+    });
+
     return (
         <div>
             <Link to="/" style={{ textDecoration: 'none', color: '#000', marginBottom: '20px', display: 'flex', alignItems: 'center' }}>
                 <IoChevronBackCircle size={40} />Back to Home
             </Link>
-            <ReactToPrint
-                content={reactToPrintContent}
-                documentTitle="NamaBerkasKeren"
-                onAfterPrint={handleAfterPrint}
-                onBeforeGetContent={handleOnBeforeGetContent}
-                onBeforePrint={handleBeforePrint}
-                removeAfterPrint
-                trigger={reactToPrintTrigger}
-            />
-            {loading && <div className="loading-overlay" style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0, 0, 0, 0.5)', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            {data.length > 0 ?
+                <>
+                    <ReactToPrint
+                        content={reactToPrintContent}
+                        documentTitle="NamaBerkasKeren"
+                        onAfterPrint={handleAfterPrint}
+                        onBeforeGetContent={handleOnBeforeGetContent}
+                        onBeforePrint={handleBeforePrint}
+                        removeAfterPrint
+                        trigger={reactToPrintTrigger}
+                    />
+                    <SensusTable ref={componentRef} kelompok={id} data={data.sort((a, b) => a.NAMA.localeCompare(b.NAMA))} />
+                </> :
+                <div style={{ height: window.innerHeight, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    <button className="btn" type="button" onClick={() => handleDownload()}>
+                        <strong>CONNECT TO SERVER</strong>
+                        <div id="container-stars">
+                            <div id="stars"></div>
+                        </div>
 
-                <div className="typewriter">
-                    <div className="slide"><i></i></div>
-                    <div className="paper"></div>
-                    <div className="keyboard"></div>
+                        <div id="glow">
+                            <div className="circle"></div>
+                            <div className="circle"></div>
+                        </div>
+                    </button>
+                </div>
+            }
+            {loading && <div className="loading-overlay" style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0, 0, 0, 0.5)', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <div className="loader">
+                    <div data-glitch="Loading..." className="glitch">Loading...</div>
                 </div>
             </div>}
-            <SensusTable ref={componentRef} data={filteredData.sort((a, b) => a.NAMA.localeCompare(b.NAMA))} />
+
         </div>
 
     );
