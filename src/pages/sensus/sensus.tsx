@@ -3,7 +3,9 @@ import SensusTable from '../../components/tableSensus';
 import { DATA } from '../../data';
 import ReactToPrint from 'react-to-print';
 import { MdPrint } from "react-icons/md";
+import { IoChevronBackCircle } from "react-icons/io5";
 import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 const PDFGenerator = () => {
@@ -62,6 +64,9 @@ const PDFGenerator = () => {
     const filteredData = DATA.filter(item => item.KELOMPOK === `Kelompok ${id}`);
     return (
         <div>
+            <Link to="/" style={{ textDecoration: 'none', color: '#000', marginBottom: '20px', display: 'flex', alignItems: 'center' }}>
+                <IoChevronBackCircle size={40} />Back to Home
+            </Link>
             <ReactToPrint
                 content={reactToPrintContent}
                 documentTitle="NamaBerkasKeren"
