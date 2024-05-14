@@ -1,26 +1,21 @@
-import React from 'react';
-import { PDFViewer, Document, Page, Text, View, StyleSheet, PDFDownloadLink } from '@react-pdf/renderer';
+import React, { LegacyRef, forwardRef } from 'react';
 
 interface TableProps {
-    data: Array<any>; // Anda dapat mengganti 'any' dengan tipe data yang lebih spesifik untuk data Anda
+    data: Array<any>;
+    ref: LegacyRef<HTMLTableElement> | undefined;
 }
 
-const CustomTable: React.FC<TableProps> = ({ data }) => {
+const CustomTable: React.FC<TableProps> = forwardRef(({ data }, ref) => {
     return (
-        <table style={{borderCollapse: 'collapse', margin: 'auto'}}>
-            <thead >
-                {/* <div style={{textAlign: 'center' }}> */}
-                    <h4 style={{flex:1}}>ABSENSI KELAPA DUA</h4>
-                {/* </div> */}
-                <tr style={{ backgroundColor: "orange" , border: '1px solid black',  }}>
+        <table ref={ref} style={{ borderCollapse: 'collapse', margin: 'auto' }}>
+            <thead>
+                <tr style={{ backgroundColor: "#5C86FF", border: '1px solid black' }}>
                     <th style={{ border: '1px solid black', padding: '8px', fontSize: '12px' }}>NAMA</th>
                     <th style={{ border: '1px solid black', padding: '8px', fontSize: '12px' }}>MINGGU PERTAMA</th>
                     <th style={{ border: '1px solid black', padding: '8px', fontSize: '12px' }}>MINGGU KEDUA</th>
                     <th style={{ border: '1px solid black', padding: '8px', fontSize: '12px' }}>MINGGU KETIGA</th>
                     <th style={{ border: '1px solid black', padding: '8px', fontSize: '12px' }}>MINGGU KEEMPAT</th>
                     <th style={{ border: '1px solid black', padding: '8px', fontSize: '12px' }}>MINGGU KELIMA</th>
-
-                    {/* Tambahkan header kolom lebih sesuai kebutuhan */}
                 </tr>
             </thead>
             <tbody>
@@ -37,14 +32,13 @@ const CustomTable: React.FC<TableProps> = ({ data }) => {
                     ))
                 ) : (
                     <tr>
-                        <td colSpan={2} style={{ border: '1px solid black', padding: '8px' }}>Data kosong</td>
+                        <td colSpan={6} style={{ border: '1px solid black', padding: '8px' }}>Data kosong</td>
                     </tr>
                 )}
             </tbody>
         </table>
     );
-};
+});
 
 export default CustomTable;
-
 

@@ -1,93 +1,87 @@
-import { useEffect, useState } from 'react';
-import { Document, Page, View, StyleSheet, } from '@react-pdf/renderer';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import SensusTable from '../../components/tableSensus';
 import { DATA } from '../../data';
-
-const styles = StyleSheet.create({
-    page: {
-        flexDirection: 'row',
-        backgroundColor: '#E4E4E4'
-    },
-    section: {
-        // margin: 10,
-        paddingHorizontal: 10,
-        flexGrow: 1,
-    }
-});
+import ReactToPrint from 'react-to-print';
+import { MdPrint } from "react-icons/md";
+import { useParams } from 'react-router-dom';
 
 
 const PDFGenerator = () => {
-    const [fetchedData, setFetchedData] = useState([]);
-    const [print, setPrint] = useState(false)
+    const { id } = useParams();
+    const componentRef = useRef<HTMLTableElement>(null);
+    const onBeforeGetContentResolve = useRef<Function | null>(null);
+    const [loading, setLoading] = useState(false);
+    const [showPrint, setShowPrint] = useState(false)
+    const [text, setText] = useState("teks lama membosankan");
 
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         try {
-    //             const response = await fetch('https://sheetdb.io/api/v1/uijf2hx2kvi0k');
-    //             const data = await response.json();
-    //             setFetchedData(data);
-    //         } catch (error) {
-    //             console.error('Error fetching data:', error);
-    //         }
-    //     };
+    const handleAfterPrint = useCallback(() => {
+        console.log("`onAfterPrint` dipanggil");
+        setShowPrint(false)
+    }, []);
 
-    //     fetchData();
-    // }, []);
+    const handleBeforePrint = useCallback(() => {
+        console.log("`onBeforePrint` dipanggil");
+    }, []);
 
-    window.onbeforeprint = function (event) {
-        
-        setPrint(true)
-        // Akan dipanggil sebelum fungsi window.print() dijalankan
+    const handleOnBeforeGetContent = useCallback(() => {
+        console.log("`onBeforeGetContent` dipanggil");
+        setShowPrint(true)
+        setLoading(true);
+        setText("Memuat teks baru...");
+        return new Promise<void>((resolve) => {
+            onBeforeGetContentResolve.current = resolve;
+            setTimeout(() => {
+                setLoading(false);
+                setText("Teks Baru, Diperbarui!");
+                resolve();
+            }, 1000);
+        });
+    }, [setLoading, setText]);
 
-        // Memeriksa apakah pencetakan telah dibatalkan
-        window.onafterprint = function (event) {
-            setPrint(false)
-            // Akan dipanggil setelah fungsi window.print() selesai atau dibatalkan
-            // setPrint(!print)
-            // Memeriksa apakah pencetakan telah dibatalkan
-            if (!event.defaultPrevented) {
-                setPrint(false)
-                console.log('Pencetakan dibatalkan.');
-                // Lakukan tindakan yang sesuai jika pencetakan dibatalkan
-            }
-        };
-    };
+    useEffect(() => {
+        if (
+            text === "Teks Baru, Diperbarui!" &&
+            typeof onBeforeGetContentResolve.current === "function"
+        ) {
+            onBeforeGetContentResolve.current();
+        }
+    }, [text]);
 
-    const handlePrint = () => {
-        setPrint(true)
-        setTimeout(() => {
-            window.print()
-        }, 500)
+    const reactToPrintContent = useCallback(() => {
+        return componentRef.current;
+    }, []);
+
+    const reactToPrintTrigger = () => {
+        return showPrint ? <div style={{ display: 'none' }}></div> : <div style={{ position: 'fixed', bottom: '20px', right: '50px' }}>
+            <button className='print-button '>
+                <MdPrint size={40} />
+            </button>
+        </div>
     }
-    
+    const filteredData = DATA.filter(item => item.KELOMPOK === `Kelompok ${id}`);
     return (
-        <View style={{ paddingHorizontal: 20 }}>
-            <Document>
-                <Page size="A4" style={styles.page}>
-                    {/* <View style={styles.section}> */}
-                    <SensusTable data={DATA.sort((a, b) => a.NAMA.localeCompare(b.NAMA))} />
-                    {/* </View> */}
-                    <div style={{ textAlign:'right', marginRight:120,marginTop:100 }}>
-                        <p style={{}}>Paraf,</p>
-                        <p style={{ height: "80px" }} />
-                        <p>H. Limantioko</p>
-                    </div>
-                </Page>
-            </Document>
-            {print === false &&
-                <div style={{ position: 'fixed', bottom: 20, right: 20 }}>
-                    <button style={{ borderRadius: '50%', padding: '10px', width: '50px', height: '50px', backgroundColor: '#007bff', color: '#fff' }} onClick={() => handlePrint()}>Cetak</button>
-                </div>
-            }
+        <div>
+            <ReactToPrint
+                content={reactToPrintContent}
+                documentTitle="NamaBerkasKeren"
+                onAfterPrint={handleAfterPrint}
+                onBeforeGetContent={handleOnBeforeGetContent}
+                onBeforePrint={handleBeforePrint}
+                removeAfterPrint
+                trigger={reactToPrintTrigger}
+            />
+            {loading && <div className="loading-overlay" style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0, 0, 0, 0.5)', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
 
-        </View >
+                <div className="typewriter">
+                    <div className="slide"><i></i></div>
+                    <div className="paper"></div>
+                    <div className="keyboard"></div>
+                </div>
+            </div>}
+            <SensusTable ref={componentRef} data={filteredData.sort((a, b) => a.NAMA.localeCompare(b.NAMA))} />
+        </div>
 
     );
 };
 
 export default PDFGenerator;
-
-
-
-
-

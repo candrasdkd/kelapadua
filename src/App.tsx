@@ -1,12 +1,14 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Sensus from './pages/sensus/sensus';
+import Home from './pages/home/home';
 
 function App() {
   return (
     <div>
       <Router>
         <Routes>
-          <Route path="/sensus" element={<Sensus />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/sensus/:id" element={<Sensus />} />
         </Routes>
       </Router>
     </div>
