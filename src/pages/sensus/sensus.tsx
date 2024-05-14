@@ -21,6 +21,7 @@ const PDFGenerator = () => {
 
     const handleBeforePrint = useCallback(() => {
         console.log("`onBeforePrint` dipanggil");
+        setShowPrint(true)
     }, []);
 
     const handleOnBeforeGetContent = useCallback(() => {
