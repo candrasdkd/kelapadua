@@ -232,7 +232,7 @@ code {
   transform: scale(0.9, 0.9);
 }
 
-.btn {
+.btn-connect {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -250,7 +250,7 @@ code {
   background-clip: content-box, border-box;
 }
 
-#container-stars {
+.btn-connect #container-stars {
   position: absolute;
   z-index: -1;
   width: 100%;
@@ -261,7 +261,7 @@ code {
   border-radius: 5rem;
 }
 
-strong {
+.btn-connect strong {
   z-index: 2;
   font-family: 'Avalors Personal Use';
   font-size: 12px;
@@ -270,13 +270,13 @@ strong {
   text-shadow: 0 0 4px white;
 }
 
-#glow {
+.btn-connect #glow {
   position: absolute;
   display: flex;
   width: 12rem;
 }
 
-.circle {
+.btn-connect .circle {
   width: 100%;
   height: 30px;
   filter: blur(2rem);
@@ -284,42 +284,42 @@ strong {
   z-index: -1;
 }
 
-.circle:nth-of-type(1) {
+.btn-connect .circle:nth-of-type(1) {
   background: rgba(254, 83, 186, 0.636);
 }
 
-.circle:nth-of-type(2) {
+.btn-connect .circle:nth-of-type(2) {
   background: rgba(142, 81, 234, 0.704);
 }
 
-.btn:hover #container-stars {
+.btn-connect:hover #container-stars {
   z-index: 1;
   background-color: #212121;
 }
 
-.btn:hover {
+.btn-connect:hover {
   transform: scale(1.1)
 }
 
-.btn:active {
+.btn-connect:active {
   border: double 4px #FE53BB;
   background-origin: border-box;
   background-clip: content-box, border-box;
   animation: none;
 }
 
-.btn:active .circle {
+.btn-connect:active .circle {
   background: #FE53BB;
 }
 
-#stars {
+.btn-connect #stars {
   position: relative;
   background: transparent;
   width: 200rem;
   height: 200rem;
 }
 
-#stars::after {
+.btn-connect #stars::after {
   content: "";
   position: absolute;
   top: -10rem;
@@ -329,12 +329,12 @@ strong {
   animation: animStarRotate 90s linear infinite;
 }
 
-#stars::after {
+.btn-connect #stars::after {
   background-image: radial-gradient(#ffffff 1px, transparent 1%);
   background-size: 50px 50px;
 }
 
-#stars::before {
+.btn-connect #stars::before {
   content: "";
   position: absolute;
   top: 0;
@@ -344,7 +344,7 @@ strong {
   animation: animStar 60s linear infinite;
 }
 
-#stars::before {
+.btn-connect #stars::before {
   background-image: radial-gradient(#ffffff 1px, transparent 1%);
   background-size: 50px 50px;
   opacity: 0.5;
@@ -398,5 +398,46 @@ strong {
   100% {
     transform: scale(0.75);
     box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  }
+}
+
+/* MODAL */
+/* src/Modal.css */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  .modal-content {
+    width: 95%;
   }
 }

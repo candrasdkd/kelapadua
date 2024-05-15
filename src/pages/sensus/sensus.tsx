@@ -1,26 +1,47 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import SensusTable from '../../components/tableSensus';
-import { DATA } from '../../data';
+// import { DATA } from '../../data';
 import ReactToPrint from 'react-to-print';
 import { MdPrint } from "react-icons/md";
 import { IoChevronBackCircle } from "react-icons/io5";
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-interface DataItem {
-    UUID: string;
-    NAMA: string;
-    KELOMPOK: string;
-    // Add other fields as necessary
-}
+// import Modal from '../../components/modal';
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import { Autocomplete, Typography } from '@mui/material';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
+import { IoFilterSharp } from "react-icons/io5";
+
+const style = {
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    pt: 2,
+    px: 4,
+    pb: 3,
+};
 
 const PDFGenerator = () => {
     const { id } = useParams();
     const componentRef = useRef<HTMLTableElement>(null);
     const onBeforeGetContentResolve = useRef<Function | null>(null);
-    const [data, setData] = useState<DataItem[]>([]);
+    const [data, setData] = useState<any>([]);
+    const [filteredData, setFilteredData] = useState<any>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const [showPrint, setShowPrint] = useState<boolean>(false)
+    const [showModal, setShowModal] = useState<boolean>(false)
     const [text, setText] = useState("teks lama membosankan");
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
     const handleAfterPrint = useCallback(() => {
         console.log("`onAfterPrint` dipanggil");
@@ -36,7 +57,6 @@ const PDFGenerator = () => {
         console.log("`onBeforeGetContent` dipanggil");
         setShowPrint(true)
         setLoading(true);
-        setText("Memuat teks baru...");
         return new Promise<void>((resolve) => {
             onBeforeGetContentResolve.current = resolve;
             setTimeout(() => {
@@ -77,20 +97,118 @@ const PDFGenerator = () => {
                 return response.json();
             })
             .then((data) => {
-                let filteredData = data.filter((item: DataItem) => item.KELOMPOK === `Kelompok ${id}`);
-                setData(filteredData);
+                setData(data);
+                setFilteredData(data)
                 setLoading(false);
             })
             .catch((error) => {
                 setLoading(false);
             });
+        // let filteredData = DATA.filter((item) => item.KELOMPOK === `Kelompok ${id}`);
+        // setData(filteredData);
     });
+    const toggleModal = (): void => {
+        setShowModal(!showModal)
+    }
 
+    const [selectedKelompok, setSelectedKelompok] = useState("Semua");
+    const [selectedJenjang, setSelectedJenjang] = useState("Semua");
+    const [selectedJenisKelamin, setSelectedJenisKelamin] = useState("Semua");
+    const handleFilter = () => {
+        let filteredData = data.filter((item: any) => {
+            return (
+                (selectedKelompok === "Semua" || item.KELOMPOK === selectedKelompok) &&
+                (
+                    (selectedJenjang === "Semua" && item.JENJANG !== "Balita") ||
+                    (selectedJenjang === "Muda/i" && (item.JENJANG === "Remaja" || item.JENJANG === "Pra Remaja" || item.JENJANG === "Pra Nikah")) ||
+                    (selectedJenjang === "Bukan Muda/i" && (item.JENJANG === "Dewasa" || item.JENJANG === "Lansia"))
+                ) &&
+                (selectedJenisKelamin === "Semua" || item["JENIS KELAMIN"] === selectedJenisKelamin)
+            );
+        });
+        setFilteredData(filteredData);
+    }
+
+    useEffect(() => {
+        handleFilter()
+    }, [selectedKelompok, selectedJenjang, selectedJenisKelamin]);
+    // console.log('data', data);
     return (
         <div>
-            <Link to="/" style={{ textDecoration: 'none', color: '#000', marginBottom: '20px', display: 'flex', alignItems: 'center' }}>
+            <Link to="/" style={{ textDecoration: 'none', color: '#000', marginBottom: '20px', display: 'flex', alignItems: 'center', position: 'fixed', left: 10, top: 10 }}>
                 <IoChevronBackCircle size={40} />Back to Home
             </Link>
+
+            <Modal
+                open={showModal}
+                onClose={toggleModal}
+                aria-labelledby="child-modal-title"
+                aria-describedby="child-modal-description"
+            >
+                <Box sx={{ ...style, width: '70%', borderRadius: '16px', borderWidth: 0.5 }}>
+                    <Typography variant="h6" gutterBottom textAlign={"center"} style={{ marginBottom: 20 }}>
+                        FILTER DATA
+                    </Typography>
+                    <div style={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', justifyContent: 'center', alignItems: 'center' }}>
+                        <Autocomplete
+                            disablePortal
+                            id="combo-box-demo"
+                            options={[
+                                { id: 9, label: "Semua" },
+                                { id: 1, label: "Kelompok 1" },
+                                { id: 2, label: "Kelompok 2" },
+                                { id: 3, label: "Kelompok 3" },
+                                { id: 4, label: "Kelompok 4" },
+                                { id: 5, label: "Kelompok 5" },
+                            ]}
+                            sx={{ width: 300 }}
+                            onChange={(event: any, newValue: any) => {
+                                setSelectedKelompok(newValue?.label);
+                            }}
+                            renderInput={(params) => <TextField {...params} label="Kelompok" />}
+                        />
+                        <Autocomplete
+                            disablePortal
+                            id="combo-box-demo"
+                            options={[
+                                { id: 1, label: "Semua" },
+                                { id: 2, label: "Muda/i" },
+                                { id: 3, label: "Bukan Muda/i" },
+                            ]}
+                            sx={{ width: 300 }}
+                            style={{ marginRight: isMobile ? 0 : 20, marginLeft: isMobile ? 0 : 20, marginTop: isMobile ? 20 : 0, marginBottom: isMobile ? 20 : 0 }}
+                            onChange={(event: any, newValue: any) => {
+                                setSelectedJenjang(newValue?.label);
+                            }}
+                            renderInput={(params) => <TextField {...params} label="Jenjang" />}
+                        />
+                        <Autocomplete
+                            disablePortal
+                            id="combo-box-demo"
+                            options={[
+                                { id: 1, label: "Semua" },
+                                { id: 2, label: "Perempuan" },
+                                { id: 3, label: "Laki - Laki" },
+                            ]}
+                            sx={{ width: 300 }}
+                            onChange={(event: any, newValue: any) => {
+                                setSelectedJenisKelamin(newValue?.label);
+                            }}
+                            renderInput={(params) => <TextField {...params} label="Jenis Kelamin" />}
+                        />
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', marginTop: 30 }}>
+                        <Button
+                            variant="contained"
+                            color="info"
+                            style={{ width: isMobile ? '90%' : '50%', height: 45 }}
+                            onClick={toggleModal}>
+                            TUTUP
+                        </Button>
+                    </div>
+                </Box>
+            </Modal>
+
             {data.length > 0 ?
                 <>
                     <ReactToPrint
@@ -102,10 +220,13 @@ const PDFGenerator = () => {
                         removeAfterPrint
                         trigger={reactToPrintTrigger}
                     />
-                    <SensusTable ref={componentRef} kelompok={id} data={data.sort((a, b) => a.NAMA.localeCompare(b.NAMA))} />
+                    <SensusTable ref={componentRef} kelompok={id} data={filteredData.sort((a: any, b: any) => a.NAMA.localeCompare(b.NAMA))} />
+                    <button onClick={toggleModal} className='print-button' style={{ position: 'fixed', bottom: '120px', right: '50px' }}>
+                        <IoFilterSharp size={40} />
+                    </button>
                 </> :
                 <div style={{ height: window.innerHeight, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                    <button className="btn" type="button" onClick={() => handleDownload()}>
+                    <button className="btn-connect" type="button" onClick={() => handleDownload()}>
                         <strong>CONNECT TO SERVER</strong>
                         <div id="container-stars">
                             <div id="stars"></div>
@@ -118,6 +239,7 @@ const PDFGenerator = () => {
                     </button>
                 </div>
             }
+
             {loading && <div className="loading-overlay" style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0, 0, 0, 0.5)', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 <div className="loader">
                     <div data-glitch="Loading..." className="glitch">Loading...</div>
