@@ -8,44 +8,23 @@ interface TableProps {
 
 const CustomTable: React.FC<TableProps> = forwardRef(({ data, kelompok }, ref) => {
     return (
-        // <table ref={ref} style={{ borderCollapse: 'collapse', margin: 'auto' }}>
-        //     <thead>
-        //         <tr style={{ backgroundColor: "#5C86FF", border: '1px solid black' }}>
-        //             <th style={{ border: '1px solid black', padding: '8px', fontSize: '12px' }}>NAMA</th>
-        //             <th style={{ border: '1px solid black', padding: '8px', fontSize: '12px' }}>MINGGU PERTAMA</th>
-        //             <th style={{ border: '1px solid black', padding: '8px', fontSize: '12px' }}>MINGGU KEDUA</th>
-        //             <th style={{ border: '1px solid black', padding: '8px', fontSize: '12px' }}>MINGGU KETIGA</th>
-        //             <th style={{ border: '1px solid black', padding: '8px', fontSize: '12px' }}>MINGGU KEEMPAT</th>
-        //             <th style={{ border: '1px solid black', padding: '8px', fontSize: '12px' }}>MINGGU KELIMA</th>
-        //         </tr>
-        //     </thead>
-        //     <tbody>
-        //         {data.length > 0 ? (
-        //             data.map((item, index) => (
-        //                 <tr key={index}>
-        //                     <td style={{ border: '1px solid black', padding: '8px', fontSize: '12px' }}>{item["NAMA"]}</td>
-        //                     <td style={{ border: '1px solid black', padding: '8px', fontSize: '12px' }}></td>
-        //                     <td style={{ border: '1px solid black', padding: '8px', fontSize: '12px' }}></td>
-        //                     <td style={{ border: '1px solid black', padding: '8px', fontSize: '12px' }}></td>
-        //                     <td style={{ border: '1px solid black', padding: '8px', fontSize: '12px' }}></td>
-        //                     <td style={{ border: '1px solid black', padding: '8px', fontSize: '12px' }}></td>
-        //                 </tr>
-        //             ))
-        //         ) : (
-        //             <tr>
-        //                 <td colSpan={6} style={{ border: '1px solid black', padding: '8px' }}>Data kosong</td>
-        //             </tr>
-        //         )}
-        //     </tbody>
-        // </table>
         <div ref={ref}>
-
             <table style={{ borderCollapse: 'collapse', margin: 'auto' }}>
                 <thead style={{}}>
                     <tr>
                         <th colSpan={11} style={{ textAlign: 'center', padding: '10px 0' }}>
                             <h3 style={{ margin: 0 }}>ABSENSI PRIA PENGAJIAN DESA KELAPA DUA</h3>
-                            <h3 style={{ margin: 0 }}>KELOMPOK {kelompok}</h3>
+                            <h3 style={{ margin: 0 }}>{kelompok}</h3>
+                        </th>
+                    </tr>
+                    <tr style={{}}>
+                        <th colSpan={5} style={{ padding: '10px 0', textAlign: 'left' }}>
+                            <h5 style={{ margin: 0 }}>BULAN :</h5>
+                            {/* <h5 style={{ margin: 0 }}>TAHUN:</h5> */}
+                        </th>
+                        <th colSpan={5} style={{ padding: '10px 0', textAlign: 'right' }}>
+                            <h5 style={{ margin: 0 }}>TAHUN :</h5>
+                            {/* <h5 style={{ margin: 0 }}>TAHUN:</h5> */}
                         </th>
                     </tr>
                     <tr style={{ border: '1px solid black', backgroundColor: 'orange' }}>
@@ -81,28 +60,45 @@ const CustomTable: React.FC<TableProps> = forwardRef(({ data, kelompok }, ref) =
                 </thead>
                 <tbody>
                     {data.length > 0 ? (
-                        data.map((item, index) => (
-                            <tr key={index}>
-                                <td style={{ border: '1px solid black', padding: '8px', fontSize: '12px' }}>{item["NAMA"]}</td>
-                                <td style={{ border: '1px solid black', padding: '8px', fontSize: '12px' }}></td>
-                                <td style={{ border: '1px solid black', padding: '8px', fontSize: '12px' }}></td>
-                                <td style={{ border: '1px solid black', padding: '8px', fontSize: '12px' }}></td>
-                                <td style={{ border: '1px solid black', padding: '8px', fontSize: '12px' }}></td>
-                                <td style={{ border: '1px solid black', padding: '8px', fontSize: '12px' }}></td>
-                                <td style={{ border: '1px solid black', padding: '8px', fontSize: '12px' }}></td>
-                                <td style={{ border: '1px solid black', padding: '8px', fontSize: '12px' }}></td>
-                                <td style={{ border: '1px solid black', padding: '8px', fontSize: '12px' }}></td>
-                                <td style={{ border: '1px solid black', padding: '8px', fontSize: '12px' }}></td>
-                                <td style={{ border: '1px solid black', padding: '8px', fontSize: '12px' }}></td>
-                            </tr>
-                        ))
+                        data.map((item, index) => {
+                            const extractFirstTwoWords = () => {
+                                const words = item.NAMA.split(' ');
+                                return words.slice(0, 2).join(' ');
+                            };
+                            return (
+                                <tr key={index}>
+                                    {item["JENIS KELAMIN"] === "Laki - Laki" ?
+                                        <td style={{ border: '1px solid black', padding: '8px', fontSize: '12px', width: 150 }}>
+                                            {(item.JENJANG === "Dewasa" && item["STATUS PERNIKAHAN"] === "Menikah") || (item.JENJANG === "Dewasa" && item["STATUS PERNIKAHAN"] === "Duda") || item.JENJANG === "Lansia" ? `Bpk ${extractFirstTwoWords()}` : extractFirstTwoWords()}
+                                        </td> :
+                                        <td style={{ border: '1px solid black', padding: '8px', fontSize: '12px', width: 150 }}>
+                                            {(item.JENJANG === "Dewasa" && item["STATUS PERNIKAHAN"] === "Menikah") || (item.JENJANG === "Dewasa" && item["STATUS PERNIKAHAN"] === "Janda") || item.JENJANG === "Lansia" ? `Ibu ${extractFirstTwoWords()}` : extractFirstTwoWords()}
+                                        </td>
+                                    }
+
+                                    <td style={{ border: '1px solid black', padding: '8px', fontSize: '12px', width: 30 }}></td>
+                                    <td style={{ border: '1px solid black', padding: '8px', fontSize: '12px', width: 30 }}></td>
+                                    <td style={{ border: '1px solid black', padding: '8px', fontSize: '12px', width: 30 }}></td>
+                                    <td style={{ border: '1px solid black', padding: '8px', fontSize: '12px', width: 30 }}></td>
+                                    <td style={{ border: '1px solid black', padding: '8px', fontSize: '12px', width: 30 }}></td>
+                                    <td style={{ border: '1px solid black', padding: '8px', fontSize: '12px', width: 30 }}></td>
+                                    <td style={{ border: '1px solid black', padding: '8px', fontSize: '12px', width: 30 }}></td>
+                                    <td style={{ border: '1px solid black', padding: '8px', fontSize: '12px', width: 30 }}></td>
+                                    <td style={{ border: '1px solid black', padding: '8px', fontSize: '12px', width: 30 }}></td>
+                                    <td style={{ border: '1px solid black', padding: '8px', fontSize: '12px', width: 30 }}></td>
+                                </tr>
+                            )
+                        })
                     ) : (
                         <tr>
-                            <td colSpan={6} style={{ border: '1px solid black', padding: '8px' }}>Data kosong</td>
+                            <td colSpan={11} style={{ border: '1px solid black', padding: '8px'}}>Data kosong</td>
                         </tr>
                     )}
                 </tbody>
             </table>
+            <div>
+                <body>P</body>
+            </div>
         </div>
     );
 });

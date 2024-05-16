@@ -4,14 +4,12 @@ import SensusTable from '../../components/tableSensus';
 import ReactToPrint from 'react-to-print';
 import { MdPrint } from "react-icons/md";
 import { IoChevronBackCircle } from "react-icons/io5";
-import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-// import Modal from '../../components/modal';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import { Autocomplete, Typography } from '@mui/material';
+import { Alert, Autocomplete, Typography } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import { IoFilterSharp } from "react-icons/io5";
@@ -31,17 +29,23 @@ const style = {
 };
 
 const PDFGenerator = () => {
-    const { id } = useParams();
     const componentRef = useRef<HTMLTableElement>(null);
     const onBeforeGetContentResolve = useRef<Function | null>(null);
+    const theme = useTheme();
     const [data, setData] = useState<any>([]);
     const [filteredData, setFilteredData] = useState<any>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const [showPrint, setShowPrint] = useState<boolean>(false)
     const [showModal, setShowModal] = useState<boolean>(false)
+    const [selectedKelompok, setSelectedKelompok] = useState({ id: 1, label: "Semua" });
+    const [selectedJenjang, setSelectedJenjang] = useState({ id: 1, label: "Semua" });
+    const [selectedJenisKelamin, setSelectedJenisKelamin] = useState({ id: 1, label: "Semua" });
     const [text, setText] = useState("teks lama membosankan");
-    const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
+    const toggleModal = (): void => {
+        setShowModal(!showModal)
+    }
 
     const handleAfterPrint = useCallback(() => {
         console.log("`onAfterPrint` dipanggil");
@@ -99,40 +103,56 @@ const PDFGenerator = () => {
             .then((data) => {
                 setData(data);
                 setFilteredData(data)
+                setShowModal(true)
                 setLoading(false);
             })
-            .catch((error) => {
+            .catch((error: any) => {
                 setLoading(false);
+                Alert(error)
             });
-        // let filteredData = DATA.filter((item) => item.KELOMPOK === `Kelompok ${id}`);
-        // setData(filteredData);
     });
-    const toggleModal = (): void => {
-        setShowModal(!showModal)
-    }
 
-    const [selectedKelompok, setSelectedKelompok] = useState("Semua");
-    const [selectedJenjang, setSelectedJenjang] = useState("Semua");
-    const [selectedJenisKelamin, setSelectedJenisKelamin] = useState("Semua");
-    const handleFilter = () => {
+    const handleFilter = useCallback(() => {
         let filteredData = data.filter((item: any) => {
             return (
-                (selectedKelompok === "Semua" || item.KELOMPOK === selectedKelompok) &&
+                (selectedKelompok?.label === "Semua" || item.KELOMPOK === selectedKelompok?.label) &&
                 (
-                    (selectedJenjang === "Semua" && item.JENJANG !== "Balita") ||
-                    (selectedJenjang === "Muda/i" && (item.JENJANG === "Remaja" || item.JENJANG === "Pra Remaja" || item.JENJANG === "Pra Nikah")) ||
-                    (selectedJenjang === "Bukan Muda/i" && (item.JENJANG === "Dewasa" || item.JENJANG === "Lansia"))
+                    (selectedJenjang.label === "Semua" && item.JENJANG !== "Balita" && item.JENJANG !== "Cabe Rawit") ||
+                    (selectedJenjang.label === "Muda/i" && (item.JENJANG === "Remaja" || item.JENJANG === "Pra Remaja" || item.JENJANG === "Pra Nikah")) ||
+                    (selectedJenjang.label === "Bukan Muda/i" && (item.JENJANG === "Dewasa" || item.JENJANG === "Lansia"))
                 ) &&
-                (selectedJenisKelamin === "Semua" || item["JENIS KELAMIN"] === selectedJenisKelamin)
+                (selectedJenisKelamin.label === "Semua" || item["JENIS KELAMIN"] === selectedJenisKelamin.label)
             );
         });
+
+        filteredData.sort((a: any, b: any) => {
+            if (
+                (a["STATUS PERNIKAHAN"] === "Menikah" || a["STATUS PERNIKAHAN"] === "Duda" || a["STATUS PERNIKAHAN"] === "Janda") &&
+                (b["STATUS PERNIKAHAN"] !== "Menikah" || b["STATUS PERNIKAHAN"] !== "Duda" || b["STATUS PERNIKAHAN"] !== "Janda")
+            ) {
+                return -1;
+            } else if (
+                (a["STATUS PERNIKAHAN"] !== "Menikah" || a["STATUS PERNIKAHAN"] !== "Duda" || a["STATUS PERNIKAHAN"] !== "Janda") &&
+                (b["STATUS PERNIKAHAN"] === "Menikah" || b["STATUS PERNIKAHAN"] === "Duda" || b["STATUS PERNIKAHAN"] === "Janda")
+            ) {
+                return 1;
+            }
+            if ((a.JENJANG === "Dewasa" || a.JENJANG === "Lansia") && (b.JENJANG !== "Dewasa" && b.JENJANG !== "Lansia")) {
+                return -1;
+            } else if ((a.JENJANG !== "Dewasa" && a.JENJANG !== "Lansia") && (b.JENJANG === "Dewasa" || b.JENJANG === "Lansia")) {
+                return 1;
+            } else {
+                return a.NAMA.localeCompare(b.NAMA);
+            }
+        });
         setFilteredData(filteredData);
-    }
+    }, [data, selectedKelompok, selectedJenjang, selectedJenisKelamin]);
 
     useEffect(() => {
-        handleFilter()
-    }, [selectedKelompok, selectedJenjang, selectedJenisKelamin]);
-    // console.log('data', data);
+        handleFilter();
+    }, [handleFilter]);
+
+
     return (
         <div>
             <Link to="/" style={{ textDecoration: 'none', color: '#000', marginBottom: '20px', display: 'flex', alignItems: 'center', position: 'fixed', left: 10, top: 10 }}>
@@ -152,23 +172,26 @@ const PDFGenerator = () => {
                     <div style={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', justifyContent: 'center', alignItems: 'center' }}>
                         <Autocomplete
                             disablePortal
+                            value={selectedKelompok}
                             id="combo-box-demo"
                             options={[
-                                { id: 9, label: "Semua" },
-                                { id: 1, label: "Kelompok 1" },
-                                { id: 2, label: "Kelompok 2" },
-                                { id: 3, label: "Kelompok 3" },
-                                { id: 4, label: "Kelompok 4" },
-                                { id: 5, label: "Kelompok 5" },
+                                { id: 1, label: "Semua" },
+                                { id: 2, label: "Kelompok 1" },
+                                { id: 3, label: "Kelompok 2" },
+                                { id: 4, label: "Kelompok 3" },
+                                { id: 5, label: "Kelompok 4" },
+                                { id: 6, label: "Kelompok 5" },
                             ]}
                             sx={{ width: 300 }}
                             onChange={(event: any, newValue: any) => {
-                                setSelectedKelompok(newValue?.label);
+                                setSelectedKelompok(newValue);
                             }}
+                            isOptionEqualToValue={(option, value) => option.label.toLowerCase() === value.label.toLowerCase()}
                             renderInput={(params) => <TextField {...params} label="Kelompok" />}
                         />
                         <Autocomplete
                             disablePortal
+                            value={selectedJenjang}
                             id="combo-box-demo"
                             options={[
                                 { id: 1, label: "Semua" },
@@ -178,12 +201,14 @@ const PDFGenerator = () => {
                             sx={{ width: 300 }}
                             style={{ marginRight: isMobile ? 0 : 20, marginLeft: isMobile ? 0 : 20, marginTop: isMobile ? 20 : 0, marginBottom: isMobile ? 20 : 0 }}
                             onChange={(event: any, newValue: any) => {
-                                setSelectedJenjang(newValue?.label);
+                                setSelectedJenjang(newValue);
                             }}
+                            isOptionEqualToValue={(option, value) => option.label.toLowerCase() === value.label.toLowerCase()}
                             renderInput={(params) => <TextField {...params} label="Jenjang" />}
                         />
                         <Autocomplete
                             disablePortal
+                            value={selectedJenisKelamin}
                             id="combo-box-demo"
                             options={[
                                 { id: 1, label: "Semua" },
@@ -192,8 +217,9 @@ const PDFGenerator = () => {
                             ]}
                             sx={{ width: 300 }}
                             onChange={(event: any, newValue: any) => {
-                                setSelectedJenisKelamin(newValue?.label);
+                                setSelectedJenisKelamin(newValue);
                             }}
+                            isOptionEqualToValue={(option, value) => option.label.toLowerCase() === value.label.toLowerCase()}
                             renderInput={(params) => <TextField {...params} label="Jenis Kelamin" />}
                         />
                     </div>
@@ -220,7 +246,7 @@ const PDFGenerator = () => {
                         removeAfterPrint
                         trigger={reactToPrintTrigger}
                     />
-                    <SensusTable ref={componentRef} kelompok={id} data={filteredData.sort((a: any, b: any) => a.NAMA.localeCompare(b.NAMA))} />
+                    <SensusTable ref={componentRef} kelompok={selectedKelompok?.label.toUpperCase()} data={filteredData} />
                     <button onClick={toggleModal} className='print-button' style={{ position: 'fixed', bottom: '120px', right: '50px' }}>
                         <IoFilterSharp size={40} />
                     </button>
