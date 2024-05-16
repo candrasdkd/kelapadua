@@ -12,12 +12,9 @@ code {
     monospace;
 }
 
-.print-button {
+.floating-button {
   display: grid;
   place-items: center;
-  background: orange;
-  padding: 1.4em;
-  border-radius: 10px;
   color: rgb(0, 0, 0);
   box-shadow: 6px 6px 10px -1px rgba(0, 0, 0, 0.15),
     -6px -6px 10px -1px rgba(255, 255, 255, 0.7);
@@ -26,7 +23,7 @@ code {
   transition: transform 0.5s;
 }
 
-.print-button:hover {
+.floating-button:hover {
   box-shadow: inset 4px 4px 6px -1px rgba(0, 0, 0, 0.2),
     inset -4px -4px 6px -1px rgba(255, 255, 255, 0.7),
     -0.5px -0.5px 0px rgba(255, 255, 255, 1),
@@ -36,26 +33,6 @@ code {
   transform: translateY(0.5em);
 }
 
-@media (max-width: 768px) {
-  .print-button {
-    width: 80px;
-    height: 80px;
-    padding: 8px;
-  }
-}
-
-@media (max-width: 480px) {
-  .print-button {
-    width: 70px;
-    height: 70px;
-    padding: 6px;
-  }
-}
-
-.print-button .icon {
-  width: 50%;
-  height: 50%;
-}
 
 
 @media print {

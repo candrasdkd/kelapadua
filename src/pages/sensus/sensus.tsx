@@ -13,6 +13,7 @@ import { Alert, Autocomplete, Typography } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import { IoFilterSharp } from "react-icons/io5";
+import { IoIosHome } from "react-icons/io";
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -84,13 +85,6 @@ const PDFGenerator = () => {
         return componentRef.current;
     }, []);
 
-    const reactToPrintTrigger = () => {
-        return showPrint ? <div style={{ display: 'none' }}></div> : <div style={{ position: 'fixed', bottom: '20px', right: '50px' }}>
-            <button className='print-button '>
-                <MdPrint size={40} />
-            </button>
-        </div>
-    }
     const handleDownload = (() => {
         setLoading(true)
         fetch('https://sheetdb.io/api/v1/uijf2hx2kvi0k')
@@ -155,10 +149,6 @@ const PDFGenerator = () => {
 
     return (
         <div>
-            <Link to="/" style={{ textDecoration: 'none', color: '#000', marginBottom: '20px', display: 'flex', alignItems: 'center', position: 'fixed', left: 10, top: 10 }}>
-                <IoChevronBackCircle size={40} />Back to Home
-            </Link>
-
             <Modal
                 open={showModal}
                 onClose={toggleModal}
@@ -244,11 +234,58 @@ const PDFGenerator = () => {
                         onBeforeGetContent={handleOnBeforeGetContent}
                         onBeforePrint={handleBeforePrint}
                         removeAfterPrint
-                        trigger={reactToPrintTrigger}
+                        trigger={() => {
+                            return showPrint ?
+                                <div style={{ display: 'none' }}></div> :
+                                <button
+                                    onClick={toggleModal}
+                                    className='floating-button'
+                                    style={{
+                                        position: 'fixed',
+                                        bottom: '20px',
+                                        right: '30px',
+                                        backgroundColor: 'orange',
+                                        width: isMobile ? 40 : 60,
+                                        height: isMobile ? 40 : 60,
+                                        borderRadius: 40,
+                                        borderWidth: 0.5
+                                    }}>
+                                    <MdPrint size={isMobile ? 25 : 40} />
+                                </button>
+                        }}
                     />
                     <SensusTable ref={componentRef} kelompok={selectedKelompok?.label.toUpperCase()} data={filteredData} />
-                    <button onClick={toggleModal} className='print-button' style={{ position: 'fixed', bottom: '120px', right: '50px' }}>
-                        <IoFilterSharp size={40} />
+                    <button
+                        onClick={toggleModal}
+                        className='floating-button'
+                        style={{
+                            position: 'fixed',
+                            bottom: isMobile ? '70px' : '90px',
+                            right: '30px',
+                            backgroundColor: 'orange',
+                            width: isMobile ? 40 : 60,
+                            height: isMobile ? 40 : 60,
+                            borderRadius: 40,
+                            borderWidth: 0.5
+                        }}>
+                        <IoFilterSharp size={isMobile ? 25 : 40} />
+                    </button>
+                    <button
+                        onClick={toggleModal}
+                        className='floating-button'
+                        style={{
+                            position: 'fixed',
+                            bottom: isMobile ? '120px' : '160px',
+                            right: '30px',
+                            backgroundColor: 'orange',
+                            width: isMobile ? 40 : 60,
+                            height: isMobile ? 40 : 60,
+                            borderRadius: 40,
+                            borderWidth: 0.5
+                        }}>
+                        <Link to="/">
+                            <IoIosHome size={isMobile ? 25 : 40} color='black'/>
+                        </Link>
                     </button>
                 </> :
                 <div style={{ height: window.innerHeight, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
