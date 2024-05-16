@@ -20,11 +20,9 @@ const CustomTable: React.FC<TableProps> = forwardRef(({ data, kelompok }, ref) =
                     <tr style={{}}>
                         <th colSpan={5} style={{ padding: '10px 0', textAlign: 'left' }}>
                             <h5 style={{ margin: 0 }}>BULAN :</h5>
-                            {/* <h5 style={{ margin: 0 }}>TAHUN:</h5> */}
                         </th>
                         <th colSpan={5} style={{ padding: '10px 0', textAlign: 'right' }}>
                             <h5 style={{ margin: 0 }}>TAHUN :</h5>
-                            {/* <h5 style={{ margin: 0 }}>TAHUN:</h5> */}
                         </th>
                     </tr>
                     <tr style={{ border: '1px solid black', backgroundColor: 'orange' }}>
@@ -46,7 +44,7 @@ const CustomTable: React.FC<TableProps> = forwardRef(({ data, kelompok }, ref) =
                         <th className='column' style={{ fontSize: 14, textAlign: 'left', borderRight: '1px solid black' }} colSpan={2}>Tgl:</th>
                     </tr>
                     <tr style={{ border: '1px solid black', backgroundColor: 'orange' }}>
-                        <th className='column' style={{ borderLeft: '1px solid black', borderRight: '1px solid black' }} >Jam</th>
+                        <th className='column' style={{ fontSize: 14, borderLeft: '1px solid black', borderRight: '1px solid black' }} >Jam</th>
                         <th className='column' style={{ fontSize: 14, borderRight: '1px solid black' }} >Paraf</th>
                         <th className='column' style={{ fontSize: 14, borderRight: '1px solid black' }} >Jam</th>
                         <th className='column' style={{ fontSize: 14, borderRight: '1px solid black' }} >Paraf</th>
@@ -68,36 +66,35 @@ const CustomTable: React.FC<TableProps> = forwardRef(({ data, kelompok }, ref) =
                             return (
                                 <tr key={index}>
                                     {item["JENIS KELAMIN"] === "Laki - Laki" ?
-                                        <td style={{ border: '1px solid black', padding: '8px', fontSize: '12px', width: 150 }}>
+                                        <td style={{ border: '1px solid black', padding: '8px', fontSize: '12px', width: 150, color: item.NAMA === "KOSONG" ? 'white' : 'black' }}>
                                             {(item.JENJANG === "Dewasa" && item["STATUS PERNIKAHAN"] === "Menikah") || (item.JENJANG === "Dewasa" && item["STATUS PERNIKAHAN"] === "Duda") || item.JENJANG === "Lansia" ? `Bpk ${extractFirstTwoWords()}` : extractFirstTwoWords()}
                                         </td> :
-                                        <td style={{ border: '1px solid black', padding: '8px', fontSize: '12px', width: 150 }}>
+                                        <td style={{ border: '1px solid black', padding: '8px', fontSize: '12px', width: 150, color: item.NAMA === "KOSONG" ? 'white' : 'black' }}>
                                             {(item.JENJANG === "Dewasa" && item["STATUS PERNIKAHAN"] === "Menikah") || (item.JENJANG === "Dewasa" && item["STATUS PERNIKAHAN"] === "Janda") || item.JENJANG === "Lansia" ? `Ibu ${extractFirstTwoWords()}` : extractFirstTwoWords()}
                                         </td>
                                     }
-
+                                    <td style={{ border: '1px solid black', padding: '8px', fontSize: '12px', width: 35 }}></td>
                                     <td style={{ border: '1px solid black', padding: '8px', fontSize: '12px', width: 30 }}></td>
+                                    <td style={{ border: '1px solid black', padding: '8px', fontSize: '12px', width: 35 }}></td>
                                     <td style={{ border: '1px solid black', padding: '8px', fontSize: '12px', width: 30 }}></td>
+                                    <td style={{ border: '1px solid black', padding: '8px', fontSize: '12px', width: 35 }}></td>
                                     <td style={{ border: '1px solid black', padding: '8px', fontSize: '12px', width: 30 }}></td>
+                                    <td style={{ border: '1px solid black', padding: '8px', fontSize: '12px', width: 35 }}></td>
                                     <td style={{ border: '1px solid black', padding: '8px', fontSize: '12px', width: 30 }}></td>
-                                    <td style={{ border: '1px solid black', padding: '8px', fontSize: '12px', width: 30 }}></td>
-                                    <td style={{ border: '1px solid black', padding: '8px', fontSize: '12px', width: 30 }}></td>
-                                    <td style={{ border: '1px solid black', padding: '8px', fontSize: '12px', width: 30 }}></td>
-                                    <td style={{ border: '1px solid black', padding: '8px', fontSize: '12px', width: 30 }}></td>
-                                    <td style={{ border: '1px solid black', padding: '8px', fontSize: '12px', width: 30 }}></td>
+                                    <td style={{ border: '1px solid black', padding: '8px', fontSize: '12px', width: 35 }}></td>
                                     <td style={{ border: '1px solid black', padding: '8px', fontSize: '12px', width: 30 }}></td>
                                 </tr>
                             )
                         })
                     ) : (
                         <tr>
-                            <td colSpan={11} style={{ border: '1px solid black', padding: '8px'}}>Data kosong</td>
+                            <td colSpan={11} style={{ border: '1px solid black', padding: '8px' }}>Data kosong</td>
                         </tr>
                     )}
                 </tbody>
             </table>
             <div>
-                <body>P</body>
+                {/* <body>P</body> */}
             </div>
         </div>
     );

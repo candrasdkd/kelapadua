@@ -1,9 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import SensusTable from '../../components/tableSensus';
-// import { DATA } from '../../data';
+import { DATA } from '../../data';
 import ReactToPrint from 'react-to-print';
 import { MdPrint } from "react-icons/md";
-import { IoChevronBackCircle } from "react-icons/io5";
 import { Link } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
@@ -43,6 +42,16 @@ const PDFGenerator = () => {
     const [selectedJenisKelamin, setSelectedJenisKelamin] = useState({ id: 1, label: "Semua" });
     const [text, setText] = useState("teks lama membosankan");
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+    const emptyData = [
+        { NAMA: "KOSONG", "JENIS KELAMIN": "", JENJANG: "", "STATUS PERNIKAHAN": "", KELOMPOK: "", },
+        { NAMA: "KOSONG", "JENIS KELAMIN": "", JENJANG: "", "STATUS PERNIKAHAN": "", KELOMPOK: "", },
+        { NAMA: "KOSONG", "JENIS KELAMIN": "", JENJANG: "", "STATUS PERNIKAHAN": "", KELOMPOK: "", },
+        { NAMA: "KOSONG", "JENIS KELAMIN": "", JENJANG: "", "STATUS PERNIKAHAN": "", KELOMPOK: "", },
+        { NAMA: "KOSONG", "JENIS KELAMIN": "", JENJANG: "", "STATUS PERNIKAHAN": "", KELOMPOK: "", },
+        { NAMA: "KOSONG", "JENIS KELAMIN": "", JENJANG: "", "STATUS PERNIKAHAN": "", KELOMPOK: "", },
+        { NAMA: "KOSONG", "JENIS KELAMIN": "", JENJANG: "", "STATUS PERNIKAHAN": "", KELOMPOK: "", },
+        // Tambahkan data kosong sesuai kebutuhan
+    ];
 
     const toggleModal = (): void => {
         setShowModal(!showModal)
@@ -87,6 +96,7 @@ const PDFGenerator = () => {
 
     const handleDownload = (() => {
         setLoading(true)
+
         fetch('https://sheetdb.io/api/v1/uijf2hx2kvi0k')
             .then((response) => {
                 if (!response.ok) {
@@ -95,8 +105,18 @@ const PDFGenerator = () => {
                 return response.json();
             })
             .then((data) => {
-                setData(data);
-                setFilteredData(data)
+                // Tambahkan data kosong di sini
+                const transformData = DATA.map((item: any) => {
+                    return {
+                        NAMA: item.NAMA,
+                        "JENIS KELAMIN": item["JENIS KELAMIN"],
+                        JENJANG: item.JENJANG,
+                        "STATUS PERNIKAHAN": item["STATUS PERNIKAHAN"],
+                        KELOMPOK: item.KELOMPOK,
+                    }
+                })
+                setData(transformData);
+                setFilteredData(transformData);
                 setShowModal(true)
                 setLoading(false);
             })
@@ -104,6 +124,20 @@ const PDFGenerator = () => {
                 setLoading(false);
                 Alert(error)
             });
+        // const transformData = DATA.map((item: any) => {
+        //     return {
+        //         NAMA: item.NAMA,
+        //         "JENIS KELAMIN": item["JENIS KELAMIN"],
+        //         JENJANG: item.JENJANG,
+        //         "STATUS PERNIKAHAN": item["STATUS PERNIKAHAN"],
+        //         KELOMPOK: item.KELOMPOK,
+        //     }
+        // })
+        // setTimeout(() => {
+        //     setData(transformData);
+        //     setFilteredData(transformData);
+        //     setLoading(false);
+        // }, 2000);
     });
 
     const handleFilter = useCallback(() => {
@@ -145,7 +179,6 @@ const PDFGenerator = () => {
     useEffect(() => {
         handleFilter();
     }, [handleFilter]);
-
 
     return (
         <div>
@@ -229,7 +262,7 @@ const PDFGenerator = () => {
                 <>
                     <ReactToPrint
                         content={reactToPrintContent}
-                        documentTitle="NamaBerkasKeren"
+                        documentTitle="Absensi Desa"
                         onAfterPrint={handleAfterPrint}
                         onBeforeGetContent={handleOnBeforeGetContent}
                         onBeforePrint={handleBeforePrint}
@@ -245,48 +278,52 @@ const PDFGenerator = () => {
                                         bottom: '20px',
                                         right: '30px',
                                         backgroundColor: 'orange',
-                                        width: isMobile ? 40 : 60,
-                                        height: isMobile ? 40 : 60,
+                                        width: isMobile ? 50 : 60,
+                                        height: isMobile ? 50 : 60,
                                         borderRadius: 40,
                                         borderWidth: 0.5
                                     }}>
-                                    <MdPrint size={isMobile ? 25 : 40} />
+                                    <MdPrint size={isMobile ? 25 : 30} />
                                 </button>
                         }}
                     />
-                    <SensusTable ref={componentRef} kelompok={selectedKelompok?.label.toUpperCase()} data={filteredData} />
-                    <button
-                        onClick={toggleModal}
-                        className='floating-button'
-                        style={{
-                            position: 'fixed',
-                            bottom: isMobile ? '70px' : '90px',
-                            right: '30px',
-                            backgroundColor: 'orange',
-                            width: isMobile ? 40 : 60,
-                            height: isMobile ? 40 : 60,
-                            borderRadius: 40,
-                            borderWidth: 0.5
-                        }}>
-                        <IoFilterSharp size={isMobile ? 25 : 40} />
-                    </button>
-                    <button
-                        onClick={toggleModal}
-                        className='floating-button'
-                        style={{
-                            position: 'fixed',
-                            bottom: isMobile ? '120px' : '160px',
-                            right: '30px',
-                            backgroundColor: 'orange',
-                            width: isMobile ? 40 : 60,
-                            height: isMobile ? 40 : 60,
-                            borderRadius: 40,
-                            borderWidth: 0.5
-                        }}>
-                        <Link to="/">
-                            <IoIosHome size={isMobile ? 25 : 40} color='black'/>
-                        </Link>
-                    </button>
+                    <SensusTable ref={componentRef} kelompok={selectedKelompok?.label.toUpperCase()} data={[...filteredData, ...emptyData]} />
+                    {!showPrint &&
+                        <button
+                            onClick={toggleModal}
+                            className='floating-button'
+                            style={{
+                                position: 'fixed',
+                                bottom: isMobile ? '80px' : '90px',
+                                right: '30px',
+                                backgroundColor: 'orange',
+                                width: isMobile ? 50 : 60,
+                                height: isMobile ? 50 : 60,
+                                borderRadius: 40,
+                                borderWidth: 0.5
+                            }}>
+                            <IoFilterSharp size={isMobile ? 25 : 30} />
+                        </button>
+                    }
+                    {!showPrint &&
+                        <button
+                            onClick={toggleModal}
+                            className='floating-button'
+                            style={{
+                                position: 'fixed',
+                                bottom: isMobile ? '140px' : '160px',
+                                right: '30px',
+                                backgroundColor: 'orange',
+                                width: isMobile ? 50 : 60,
+                                height: isMobile ? 50 : 60,
+                                borderRadius: 40,
+                                borderWidth: 0.5
+                            }}>
+                            <Link to="/">
+                                <IoIosHome size={isMobile ? 25 : 30} color='black' />
+                            </Link>
+                        </button>
+                    }
                 </> :
                 <div style={{ height: window.innerHeight, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     <button className="btn-connect" type="button" onClick={() => handleDownload()}>
@@ -294,7 +331,6 @@ const PDFGenerator = () => {
                         <div id="container-stars">
                             <div id="stars"></div>
                         </div>
-
                         <div id="glow">
                             <div className="circle"></div>
                             <div className="circle"></div>

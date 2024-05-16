@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Sensus from './pages/sensus/sensus';
+import TemplateAbsensiDesa from './pages/templateAbsensiDesa/templateAbsensiDesa';
 import Home from './pages/home/home';
 
 function App() {
@@ -8,7 +8,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/template" element={<Sensus />} />
+          <Route path="/template-absensi-desa" element={<TemplateAbsensiDesa />} />
         </Routes>
       </Router>
     </div>
