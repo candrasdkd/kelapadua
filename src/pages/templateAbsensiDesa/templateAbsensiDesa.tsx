@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import SensusTable from '../../components/tableSensus';
-import { DATA } from '../../data';
+// import { DATA } from '../../data';
 import ReactToPrint from 'react-to-print';
 import { MdPrint } from "react-icons/md";
 import { Link } from 'react-router-dom';
@@ -43,13 +43,13 @@ const PDFGenerator = () => {
     const [text, setText] = useState("teks lama membosankan");
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const emptyData = [
-        { NAMA: "KOSONG", "JENIS KELAMIN": "", JENJANG: "", "STATUS PERNIKAHAN": "", KELOMPOK: "", },
-        { NAMA: "KOSONG", "JENIS KELAMIN": "", JENJANG: "", "STATUS PERNIKAHAN": "", KELOMPOK: "", },
-        { NAMA: "KOSONG", "JENIS KELAMIN": "", JENJANG: "", "STATUS PERNIKAHAN": "", KELOMPOK: "", },
-        { NAMA: "KOSONG", "JENIS KELAMIN": "", JENJANG: "", "STATUS PERNIKAHAN": "", KELOMPOK: "", },
-        { NAMA: "KOSONG", "JENIS KELAMIN": "", JENJANG: "", "STATUS PERNIKAHAN": "", KELOMPOK: "", },
-        { NAMA: "KOSONG", "JENIS KELAMIN": "", JENJANG: "", "STATUS PERNIKAHAN": "", KELOMPOK: "", },
-        { NAMA: "KOSONG", "JENIS KELAMIN": "", JENJANG: "", "STATUS PERNIKAHAN": "", KELOMPOK: "", },
+        { NAMA: "KOSONG", "JENIS KELAMIN": "", JENJANG: "", "STATUS PERNIKAHAN": "", KELOMPOK: "", PRIORITY: "" },
+        { NAMA: "KOSONG", "JENIS KELAMIN": "", JENJANG: "", "STATUS PERNIKAHAN": "", KELOMPOK: "", PRIORITY: "" },
+        { NAMA: "KOSONG", "JENIS KELAMIN": "", JENJANG: "", "STATUS PERNIKAHAN": "", KELOMPOK: "", PRIORITY: "" },
+        { NAMA: "KOSONG", "JENIS KELAMIN": "", JENJANG: "", "STATUS PERNIKAHAN": "", KELOMPOK: "", PRIORITY: "" },
+        { NAMA: "KOSONG", "JENIS KELAMIN": "", JENJANG: "", "STATUS PERNIKAHAN": "", KELOMPOK: "", PRIORITY: "" },
+        { NAMA: "KOSONG", "JENIS KELAMIN": "", JENJANG: "", "STATUS PERNIKAHAN": "", KELOMPOK: "", PRIORITY: "" },
+        { NAMA: "KOSONG", "JENIS KELAMIN": "", JENJANG: "", "STATUS PERNIKAHAN": "", KELOMPOK: "", PRIORITY: "" },
         // Tambahkan data kosong sesuai kebutuhan
     ];
 
@@ -105,14 +105,14 @@ const PDFGenerator = () => {
                 return response.json();
             })
             .then((data) => {
-                // Tambahkan data kosong di sini
-                const transformData = DATA.map((item: any) => {
+                const transformData = data.map((item: any) => {
                     return {
                         NAMA: item.NAMA,
                         "JENIS KELAMIN": item["JENIS KELAMIN"],
                         JENJANG: item.JENJANG,
                         "STATUS PERNIKAHAN": item["STATUS PERNIKAHAN"],
                         KELOMPOK: item.KELOMPOK,
+                        PRIORITY: parseInt(item.PRIORITY),
                     }
                 })
                 setData(transformData);
@@ -124,6 +124,7 @@ const PDFGenerator = () => {
                 setLoading(false);
                 Alert(error)
             });
+
         // const transformData = DATA.map((item: any) => {
         //     return {
         //         NAMA: item.NAMA,
@@ -131,6 +132,7 @@ const PDFGenerator = () => {
         //         JENJANG: item.JENJANG,
         //         "STATUS PERNIKAHAN": item["STATUS PERNIKAHAN"],
         //         KELOMPOK: item.KELOMPOK,
+        //         PRIORITY: parseInt(item.PRIORITY),
         //     }
         // })
         // setTimeout(() => {
@@ -154,25 +156,30 @@ const PDFGenerator = () => {
         });
 
         filteredData.sort((a: any, b: any) => {
-            if (
-                (a["STATUS PERNIKAHAN"] === "Menikah" || a["STATUS PERNIKAHAN"] === "Duda" || a["STATUS PERNIKAHAN"] === "Janda") &&
-                (b["STATUS PERNIKAHAN"] !== "Menikah" || b["STATUS PERNIKAHAN"] !== "Duda" || b["STATUS PERNIKAHAN"] !== "Janda")
-            ) {
-                return -1;
-            } else if (
-                (a["STATUS PERNIKAHAN"] !== "Menikah" || a["STATUS PERNIKAHAN"] !== "Duda" || a["STATUS PERNIKAHAN"] !== "Janda") &&
-                (b["STATUS PERNIKAHAN"] === "Menikah" || b["STATUS PERNIKAHAN"] === "Duda" || b["STATUS PERNIKAHAN"] === "Janda")
-            ) {
-                return 1;
+            // Prioritaskan berdasarkan PRIORITY
+            if (a.PRIORITY !== b.PRIORITY) {
+                return a.PRIORITY - b.PRIORITY;
             }
-            if ((a.JENJANG === "Dewasa" || a.JENJANG === "Lansia") && (b.JENJANG !== "Dewasa" && b.JENJANG !== "Lansia")) {
-                return -1;
-            } else if ((a.JENJANG !== "Dewasa" && a.JENJANG !== "Lansia") && (b.JENJANG === "Dewasa" || b.JENJANG === "Lansia")) {
-                return 1;
-            } else {
-                return a.NAMA.localeCompare(b.NAMA);
+            // Prioritaskan lansia di atas dewasa
+            if (a.JENJANG !== b.JENJANG) {
+                if (a.JENJANG === "Lansia" && b.JENJANG !== "Lansia") {
+                    return -1;
+                } else if (a.JENJANG !== "Lansia" && b.JENJANG === "Lansia") {
+                    return 1;
+                }
             }
+            // Prioritaskan status pernikahan
+            if (a["STATUS PERNIKAHAN"] !== b["STATUS PERNIKAHAN"]) {
+                if (a["STATUS PERNIKAHAN"] === "Menikah" || a["STATUS PERNIKAHAN"] === "Duda" || a["STATUS PERNIKAHAN"] === "Janda") {
+                    return -1;
+                } else {
+                    return 1;
+                }
+            }
+            // Jika status pernikahan dan jenjang sama, urutkan berdasarkan nama
+            return a.NAMA.localeCompare(b.NAMA);
         });
+
         setFilteredData(filteredData);
     }, [data, selectedKelompok, selectedJenjang, selectedJenisKelamin]);
 
