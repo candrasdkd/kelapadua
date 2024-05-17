@@ -17,7 +17,7 @@ const Home = () => {
                     <div className="circle"></div>
                     <div className="circle"></div>
                     <div className="card-inner">
-                        <p>TEMPLATE ABSENSI KELOMPOK</p>
+                        <p>TOTAL SENSUS DESA</p>
                     </div>
                 </div>
             </Link>

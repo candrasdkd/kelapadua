@@ -42,6 +42,10 @@ code {
     -webkit-print-color-adjust: exact;
     display: table-cell !important;
   }
+
+  .floating-button {
+    display: none !important;
+  }
 }
 
 /* LOADING */
@@ -159,12 +163,13 @@ code {
 .card-inner {
   width: inherit;
   height: inherit;
-  background: rgba(255,255,255,.05);
-  box-shadow: 0 0 10px rgba(0,0,0,0.25);
+  background: rgba(255, 255, 255, .05);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(10px);
   border-radius: 8px;
   display: flex;
   text-align: center;
+  justify-content: center;
   align-items: center;
   color: #0a531d;
   font-weight: 700;

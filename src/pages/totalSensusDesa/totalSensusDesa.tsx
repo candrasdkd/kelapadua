@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import SensusTable from '../../components/tableAbsensi';
+import TableSensus from '../../components/tableTotalSensus';
 import { DataSensus } from '../../data';
 import ReactToPrint from 'react-to-print';
 import { MdPrint } from "react-icons/md";
@@ -28,7 +28,7 @@ const style = {
     pb: 3,
 };
 
-const PDFGenerator = () => {
+const TotalSensus = () => {
     const componentRef = useRef<HTMLTableElement>(null);
     const onBeforeGetContentResolve = useRef<Function | null>(null);
     const theme = useTheme();
@@ -97,7 +97,7 @@ const PDFGenerator = () => {
     const handleDownload = (() => {
         setLoading(true)
 
-        // fetch('https://sheetdb.io/api/v1/uijf2hx2kvi0k?sheet=DATA JAMAAH DESA')
+        // fetch('https://sheetdb.io/api/v1/uijf2hx2kvi0k')
         //     .then((response) => {
         //         if (!response.ok) {
         //             throw new Error('Network response was not ok');
@@ -294,7 +294,7 @@ const PDFGenerator = () => {
                                 </button>
                         }}
                     />
-                    <SensusTable ref={componentRef} kelompok={selectedKelompok?.label.toUpperCase()} data={[...filteredData, ...emptyData]} />
+                    <TableSensus ref={componentRef} kelompok={selectedKelompok?.label.toUpperCase()} data={[...filteredData, ...emptyData]} />
                     {!showPrint &&
                         <button
                             onClick={toggleModal}
@@ -357,4 +357,4 @@ const PDFGenerator = () => {
     );
 };
 
-export default PDFGenerator;
+export default TotalSensus;

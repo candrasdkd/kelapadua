@@ -6,18 +6,18 @@ interface TableProps {
     ref: LegacyRef<HTMLTableElement> | undefined;
 }
 
-const CustomTable: React.FC<TableProps> = forwardRef(({ data, kelompok }, ref) => {
+const TabelAbsensi: React.FC<TableProps> = forwardRef(({ data, kelompok }, ref) => {
     return (
         <div ref={ref}>
             <table style={{ borderCollapse: 'collapse', margin: 'auto' }}>
-                <thead style={{}}>
+                <thead>
                     <tr>
                         <th colSpan={11} style={{ textAlign: 'center', padding: '10px 0' }}>
                             <h3 style={{ margin: 0 }}>ABSENSI PRIA PENGAJIAN DESA KELAPA DUA</h3>
                             <h3 style={{ margin: 0 }}>{kelompok}</h3>
                         </th>
                     </tr>
-                    <tr style={{}}>
+                    <tr>
                         <th colSpan={5} style={{ padding: '10px 0', textAlign: 'left' }}>
                             <h5 style={{ margin: 0 }}>BULAN :</h5>
                         </th>
@@ -100,5 +100,5 @@ const CustomTable: React.FC<TableProps> = forwardRef(({ data, kelompok }, ref) =
     );
 });
 
-export default CustomTable;
+export default TabelAbsensi;
 

@@ -1,4 +1,4 @@
-export const DATA = [
+export const DataSensus = [
     {
         "UUID": "9321271b60066bf8",
         "NAMA": "Suhardi",
@@ -3228,5 +3228,362 @@ export const DATA = [
         "DISPLAY": "0f59f14083fb75b1 - Martini Hidayat",
         "QR CODE": "https://quickchart.io/qr?text=0f59f14083fb75b1",
         "PRIORITY": "99"
+    }
+]
+
+export const DataKK= [
+    {
+        "UUID": "e48c2e9d7c597a51",
+        "NAMA KELUARGA": "Agung Mulyono",
+        "KELOMPOK": "Kelompok 1",
+        "DISPLAY": "Agung Mulyono - Kelompok 1"
+    },
+    {
+        "UUID": "7aa8e74c8ae80962",
+        "NAMA KELUARGA": "Damar Purwa Raya Agung",
+        "KELOMPOK": "Kelompok 1",
+        "DISPLAY": "Damar Purwa Raya Agung - Kelompok 1"
+    },
+    {
+        "UUID": "e9a41679",
+        "NAMA KELUARGA": "Dani Sutrisno",
+        "KELOMPOK": "Kelompok 1",
+        "DISPLAY": "Dani Sutrisno - Kelompok 1"
+    },
+    {
+        "UUID": "342e2e4e",
+        "NAMA KELUARGA": "Dani Zudiansyah",
+        "KELOMPOK": "Kelompok 1",
+        "DISPLAY": "Dani Zudiansyah - Kelompok 1"
+    },
+    {
+        "UUID": "44b4e217",
+        "NAMA KELUARGA": "Sudibyo",
+        "KELOMPOK": "Kelompok 1",
+        "DISPLAY": "Sudibyo - Kelompok 1"
+    },
+    {
+        "UUID": "d05e1adc",
+        "NAMA KELUARGA": "Duta Ahmad Nurfauzy",
+        "KELOMPOK": "Kelompok 1",
+        "DISPLAY": "Duta Ahmad Nurfauzy - Kelompok 1"
+    },
+    {
+        "UUID": "baa25c17",
+        "NAMA KELUARGA": "Eko Sasono",
+        "KELOMPOK": "Kelompok 1",
+        "DISPLAY": "Eko Sasono - Kelompok 1"
+    },
+    {
+        "UUID": "0b0d9059c85e2d2c",
+        "NAMA KELUARGA": "Fahmi Fahrizal",
+        "KELOMPOK": "Kelompok 1",
+        "DISPLAY": "Fahmi Fahrizal - Kelompok 1"
+    },
+    {
+        "UUID": "0f61e85d",
+        "NAMA KELUARGA": "H. Eko Prabowo",
+        "KELOMPOK": "Kelompok 1",
+        "DISPLAY": "H. Eko Prabowo - Kelompok 1"
+    },
+    {
+        "UUID": "43d6e240",
+        "NAMA KELUARGA": "H. Hasjil",
+        "KELOMPOK": "Kelompok 1",
+        "DISPLAY": "H. Hasjil - Kelompok 1"
+    },
+    {
+        "UUID": "25a39bca",
+        "NAMA KELUARGA": "H. Martini",
+        "KELOMPOK": "Kelompok 1",
+        "DISPLAY": "H. Martini - Kelompok 1"
+    },
+    {
+        "UUID": "b7a5fb5d",
+        "NAMA KELUARGA": "H. Moeslim",
+        "KELOMPOK": "Kelompok 1",
+        "DISPLAY": "H. Moeslim - Kelompok 1"
+    },
+    {
+        "UUID": "25f6a13ace0f3d8a",
+        "NAMA KELUARGA": "H. Murgito",
+        "KELOMPOK": "Kelompok 1",
+        "DISPLAY": "H. Murgito - Kelompok 1"
+    },
+    {
+        "UUID": "8c3bd3445a1c08e6",
+        "NAMA KELUARGA": "H. Suhardi",
+        "KELOMPOK": "Kelompok 1",
+        "DISPLAY": "H. Suhardi - Kelompok 1"
+    },
+    {
+        "UUID": "6162f0055d6d7dd5",
+        "NAMA KELUARGA": "H. Sutoyo",
+        "KELOMPOK": "Kelompok 1",
+        "DISPLAY": "H. Sutoyo - Kelompok 1"
+    },
+    {
+        "UUID": "15de18be",
+        "NAMA KELUARGA": "H. Edi Suyono",
+        "KELOMPOK": "Kelompok 1",
+        "DISPLAY": "H. Edi Suyono - Kelompok 1"
+    },
+    {
+        "UUID": "4ed0f67c",
+        "NAMA KELUARGA": "Ahmad Nur Hadi",
+        "KELOMPOK": "Kelompok 1",
+        "DISPLAY": "Ahmad Nur Hadi - Kelompok 1"
+    },
+    {
+        "UUID": "7fd3f7c3",
+        "NAMA KELUARGA": "Lutfi Nurhakim",
+        "KELOMPOK": "Kelompok 1",
+        "DISPLAY": "Lutfi Nurhakim - Kelompok 1"
+    },
+    {
+        "UUID": "924b703b",
+        "NAMA KELUARGA": "Mardi",
+        "KELOMPOK": "Kelompok 1",
+        "DISPLAY": "Mardi - Kelompok 1"
+    },
+    {
+        "UUID": "53ea457c",
+        "NAMA KELUARGA": "Ratno",
+        "KELOMPOK": "Kelompok 1",
+        "DISPLAY": "Ratno - Kelompok 1"
+    },
+    {
+        "UUID": "7763476d8cca7b79",
+        "NAMA KELUARGA": "Muhammad Arindra Khoiru Syawal",
+        "KELOMPOK": "Kelompok 1",
+        "DISPLAY": "Muhammad Arindra Khoiru Syawal - Kelompok 1"
+    },
+    {
+        "UUID": "797f83cb38728f99",
+        "NAMA KELUARGA": "Suwignyo",
+        "KELOMPOK": "Kelompok 1",
+        "DISPLAY": "Suwignyo - Kelompok 1"
+    },
+    {
+        "UUID": "3fe68e20",
+        "NAMA KELUARGA": "H. Amril",
+        "KELOMPOK": "Kelompok 4",
+        "DISPLAY": "H. Amril - Kelompok 4"
+    },
+    {
+        "UUID": "e75cc445",
+        "NAMA KELUARGA": "Sumarno",
+        "KELOMPOK": "Kelompok 4",
+        "DISPLAY": "Sumarno - Kelompok 4"
+    },
+    {
+        "UUID": "839987c5",
+        "NAMA KELUARGA": "H. Abdul Latif",
+        "KELOMPOK": "Kelompok 4",
+        "DISPLAY": "H. Abdul Latif - Kelompok 4"
+    },
+    {
+        "UUID": "dd57bad4",
+        "NAMA KELUARGA": "H. Daryanto",
+        "KELOMPOK": "Kelompok 4",
+        "DISPLAY": "H. Daryanto - Kelompok 4"
+    },
+    {
+        "UUID": "b3b6b7ba",
+        "NAMA KELUARGA": "Warni Wartosuwitto",
+        "KELOMPOK": "Kelompok 1",
+        "DISPLAY": "Warni Wartosuwitto - Kelompok 1"
+    },
+    {
+        "UUID": "d891a4aa",
+        "NAMA KELUARGA": "H. Ari Isandi",
+        "KELOMPOK": "Kelompok 1",
+        "DISPLAY": "H. Ari Isandi - Kelompok 1"
+    },
+    {
+        "UUID": "6ded1aa4",
+        "NAMA KELUARGA": "Wasisno",
+        "KELOMPOK": "Kelompok 1",
+        "DISPLAY": "Wasisno - Kelompok 1"
+    },
+    {
+        "UUID": "d0ccd7f5",
+        "NAMA KELUARGA": "H. Dawud Abdurrohman",
+        "KELOMPOK": "Kelompok 1",
+        "DISPLAY": "H. Dawud Abdurrohman - Kelompok 1"
+    },
+    {
+        "UUID": "97b05e0b",
+        "NAMA KELUARGA": "Agus Mintardi",
+        "KELOMPOK": "Kelompok 1",
+        "DISPLAY": "Agus Mintardi - Kelompok 1"
+    },
+    {
+        "UUID": "462b0dd4",
+        "NAMA KELUARGA": "Sugiyo",
+        "KELOMPOK": "Kelompok 1",
+        "DISPLAY": "Sugiyo - Kelompok 1"
+    },
+    {
+        "UUID": "93e5e53f",
+        "NAMA KELUARGA": "Ari Sulasmi",
+        "KELOMPOK": "Kelompok 1",
+        "DISPLAY": "Ari Sulasmi - Kelompok 1"
+    },
+    {
+        "UUID": "8feafde1",
+        "NAMA KELUARGA": "H. Joko Marwoto",
+        "KELOMPOK": "Kelompok 1",
+        "DISPLAY": "H. Joko Marwoto - Kelompok 1"
+    },
+    {
+        "UUID": "3f7ced43",
+        "NAMA KELUARGA": "Watno",
+        "KELOMPOK": "Kelompok 1",
+        "DISPLAY": "Watno - Kelompok 1"
+    },
+    {
+        "UUID": "7b5a1a99",
+        "NAMA KELUARGA": "Alimuddin Hayat",
+        "KELOMPOK": "Kelompok 1",
+        "DISPLAY": "Alimuddin Hayat - Kelompok 1"
+    },
+    {
+        "UUID": "ebb0ee7b",
+        "NAMA KELUARGA": "Muhammad Alfi",
+        "KELOMPOK": "Kelompok 1",
+        "DISPLAY": "Muhammad Alfi - Kelompok 1"
+    },
+    {
+        "UUID": "dfe4d54e",
+        "NAMA KELUARGA": "Barry Prima Huda",
+        "KELOMPOK": "Kelompok 1",
+        "DISPLAY": "Barry Prima Huda - Kelompok 1"
+    },
+    {
+        "UUID": "20e9d7ba",
+        "NAMA KELUARGA": "Pujianingsih",
+        "KELOMPOK": "Kelompok 1",
+        "DISPLAY": "Pujianingsih - Kelompok 1"
+    },
+    {
+        "UUID": "9314b3d7",
+        "NAMA KELUARGA": "H. Ria Sigit",
+        "KELOMPOK": "Kelompok 1",
+        "DISPLAY": "H. Ria Sigit - Kelompok 1"
+    },
+    {
+        "UUID": "06f6b163",
+        "NAMA KELUARGA": "H. Sugianto",
+        "KELOMPOK": "Kelompok 1",
+        "DISPLAY": "H. Sugianto - Kelompok 1"
+    },
+    {
+        "UUID": "da2d4ff2",
+        "NAMA KELUARGA": "Taufik",
+        "KELOMPOK": "Kelompok 1",
+        "DISPLAY": "Taufik - Kelompok 1"
+    },
+    {
+        "UUID": "6e2e96ab",
+        "NAMA KELUARGA": "Alsadi",
+        "KELOMPOK": "Kelompok 1",
+        "DISPLAY": "Alsadi - Kelompok 1"
+    },
+    {
+        "UUID": "06e8aa47",
+        "NAMA KELUARGA": "Bagus Oka",
+        "KELOMPOK": "Kelompok 1",
+        "DISPLAY": "Bagus Oka - Kelompok 1"
+    },
+    {
+        "UUID": "5911a433",
+        "NAMA KELUARGA": "Nanang Hermawan",
+        "KELOMPOK": "Kelompok 1",
+        "DISPLAY": "Nanang Hermawan - Kelompok 1"
+    },
+    {
+        "UUID": "b2941db4",
+        "NAMA KELUARGA": "Taiyah",
+        "KELOMPOK": "Kelompok 1",
+        "DISPLAY": "Taiyah - Kelompok 1"
+    },
+    {
+        "UUID": "aa042140",
+        "NAMA KELUARGA": "Sucihati",
+        "KELOMPOK": "Kelompok 1",
+        "DISPLAY": "Sucihati - Kelompok 1"
+    },
+    {
+        "UUID": "79e34c6c",
+        "NAMA KELUARGA": "H. Isnaini",
+        "KELOMPOK": "Kelompok 1",
+        "DISPLAY": "H. Isnaini - Kelompok 1"
+    },
+    {
+        "UUID": "96d7f305",
+        "NAMA KELUARGA": "Rizki Aziz",
+        "KELOMPOK": "Kelompok 1",
+        "DISPLAY": "Rizki Aziz - Kelompok 1"
+    },
+    {
+        "UUID": "bf7250eb",
+        "NAMA KELUARGA": "Sarji",
+        "KELOMPOK": "Kelompok 1",
+        "DISPLAY": "Sarji - Kelompok 1"
+    },
+    {
+        "UUID": "e6129e59",
+        "NAMA KELUARGA": "Sri Suparmi",
+        "KELOMPOK": "Kelompok 1",
+        "DISPLAY": "Sri Suparmi - Kelompok 1"
+    },
+    {
+        "UUID": "d5a3d779",
+        "NAMA KELUARGA": "Omat",
+        "KELOMPOK": "Kelompok 1",
+        "DISPLAY": "Omat - Kelompok 1"
+    },
+    {
+        "UUID": "39f73f04",
+        "NAMA KELUARGA": "Amar",
+        "KELOMPOK": "Kelompok 1",
+        "DISPLAY": "Amar - Kelompok 1"
+    },
+    {
+        "UUID": "168d98e1",
+        "NAMA KELUARGA": "Satwika Rahing Astuti",
+        "KELOMPOK": "Kelompok 1",
+        "DISPLAY": "Satwika Rahing Astuti - Kelompok 1"
+    },
+    {
+        "UUID": "ae273cdc",
+        "NAMA KELUARGA": "Azmi Zulfikar",
+        "KELOMPOK": "Kelompok 1",
+        "DISPLAY": "Azmi Zulfikar - Kelompok 1"
+    },
+    {
+        "UUID": "5046b085",
+        "NAMA KELUARGA": "Ahmad Harahap",
+        "KELOMPOK": "Kelompok 1",
+        "DISPLAY": "Ahmad Harahap - Kelompok 1"
+    },
+    {
+        "UUID": "d7234ea6259abeac",
+        "NAMA KELUARGA": "Muhammad Candra Aji",
+        "KELOMPOK": "Kelompok 1",
+        "DISPLAY": "Muhammad Candra Aji - Kelompok 1"
+    },
+    {
+        "UUID": "81e3f8f4bb7742ee",
+        "NAMA KELUARGA": "H. Ahmad Hasan",
+        "KELOMPOK": "Kelompok 2",
+        "DISPLAY": "H. Ahmad Hasan - Kelompok 2"
+    },
+    {
+        "UUID": "50b28fabf5a4c8aa",
+        "NAMA KELUARGA": "Muhammad Nur Auliyak",
+        "KELOMPOK": "Kelompok 3",
+        "DISPLAY": "Muhammad Nur Auliyak - Kelompok 3"
     }
 ]
