@@ -1,12 +1,12 @@
 import React, { LegacyRef, forwardRef } from 'react';
 
 interface TableProps {
-    data: Array<any>;
-    kelompok: string | undefined,
+    jumlahJenjang: any;
+    jumlahKK: Record<string, number>;
     ref: LegacyRef<HTMLTableElement> | undefined;
 }
 
-const TabelSensus: React.FC<TableProps> = forwardRef(({ data, kelompok }, ref) => {
+const TabelSensus: React.FC<TableProps> = forwardRef(({ jumlahJenjang, jumlahKK }, ref) => {
     return (
         <div ref={ref}>
             <table style={{ borderCollapse: 'collapse', margin: 'auto' }}>
@@ -32,10 +32,10 @@ const TabelSensus: React.FC<TableProps> = forwardRef(({ data, kelompok }, ref) =
                     </tr>
                     <tr style={{ border: '1px solid black' }}>
                         <th style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FEB941' }} colSpan={2}>Balita</th>
-                        <th style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FEB941' }} colSpan={2}>Caberawit</th>
+                        <th style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FEB941' }} colSpan={2}>Cabe Rawit</th>
                         <th style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FEB941' }} colSpan={2}>Pra Remaja</th>
                         <th style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FEB941' }} colSpan={2}>Remaja</th>
-                        <th style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FEB941' }} colSpan={2}>Pra Nikah</th>
+                        <th style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FEB941' }} colSpan={2}>Dewasa</th>
                     </tr>
                     <tr style={{ border: '1px solid black' }}>
                         <th style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FEB941' }} >L</th>
@@ -61,45 +61,54 @@ const TabelSensus: React.FC<TableProps> = forwardRef(({ data, kelompok }, ref) =
                 </thead>
                 <tbody style={{ border: '1px solid black', }}>
 
-                    <tr style={{ border: '1px solid black' }}>
-                        <td style={{ fontSize: 14, border: '1px solid black', width: 100, height: 30, textAlign: 'center' }}>Kelompok 1</td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td rowSpan={2} style={{ border: '1px solid black', backgroundColor: '#ACE1AF', width: 50 }}></td>
-                        <td rowSpan={2} style={{ border: '1px solid black', width: 50 }}></td>
-                        <td rowSpan={10} style={{ border: '1px solid black', width: 50 }}></td>
+                    <tr style={{ border: '1px solid black', textAlign: 'center' }}>
+                        <td style={{ fontSize: 14, border: '1px solid black', width: 100, height: 20 }}>Kelompok 1</td>
+                        <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok1.balita_l.length}</td>
+                        <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok1.balita_p.length}</td>
+                        <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok1.caberawit_l.length}</td>
+                        <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok1.caberawit_p.length}</td>
+                        <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok1.praremaja_l.length}</td>
+                        <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok1.praremaja_p.length}</td>
+                        <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok1.remaja_l.length}</td>
+                        <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok1.remaja_p.length}</td>
+                        <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok1.pranikah_l.length}</td>
+                        <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok1.pranikah_p.length}</td>
+                        <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok1.menikah_l.length}</td>
+                        <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok1.menikah_p.length}</td>
+                        <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok1.duda.length}</td>
+                        <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok1.janda.length}</td>
+                        <td style={{ border: '1px solid black' }}>{jumlahJenjang.totalLakiKelompok1}</td>
+                        <td style={{ border: '1px solid black' }}>{jumlahJenjang.totalPerempuanKelompok1}</td>
+                        <td rowSpan={2} style={{ border: '1px solid black', backgroundColor: '#ACE1AF', width: 50, textAlign: 'center', fontWeight: 'bold' }}>{jumlahJenjang.totalKeseluruhanKelompok1}</td>
+                        <td rowSpan={2} style={{ border: '1px solid black', width: 50 }}>{jumlahKK["Kelompok 1"] ? jumlahKK["Kelompok 1"] : 0}</td>
+                        <td rowSpan={10} style={{ border: '1px solid black', width: 60 }}>
+                            0 KK <br/>
+                            0 Jiwa <br/>
+                            ---- <br/>
+                            Kel 1: 0 <br/>
+                            Kel 2: 0 <br/>
+                            Kel 3: 0 <br/>
+                            Kel 4: 0 <br/>
+                            Kel 5: 0 <br/>
+                        </td>
                         <td style={{ border: '1px solid black' }}></td>
                         <td style={{ border: '1px solid black' }}></td>
                     </tr>
-                    <tr style={{ border: '1px solid black', }}>
-                        <td style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', textAlign: 'center', height: 25 }}>Jumlah</td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
+                    <tr style={{ border: '1px solid black', textAlign: 'center' }}>
+                        <td style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', height: 20 }}>Jumlah</td>
+                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}>{jumlahJenjang.totalBalitaLKelompok1 + jumlahJenjang.totalBalitaPKelompok1}</td>
+                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}>{jumlahJenjang.totalCabeRawitLKelompok1 + jumlahJenjang.totalCabeRawitPKelompok1}</td>
+                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}>{jumlahJenjang.totalPraRemajaLKelompok1 + jumlahJenjang.totalPraRemajaPKelompok1}</td>
+                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}>{jumlahJenjang.totalRemajaLKelompok1 + jumlahJenjang.totalRemajaPKelompok1}</td>
+                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}>{jumlahJenjang.totalPraNikahLKelompok1 + jumlahJenjang.totalPraNikahPKelompok1}</td>
+                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}>{jumlahJenjang.totalMenikahLKelompok1 + jumlahJenjang.totalMenikahPKelompok1}</td>
+                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}>{jumlahJenjang.totalDudaKelompok1 + jumlahJenjang.totalJandaKelompok1}</td>
+                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}>{jumlahJenjang.totalLakiKelompok1 + jumlahJenjang.totalPerempuanKelompok1}</td>
                         <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
                     </tr>
 
                     <tr>
-                        <td style={{ fontSize: 14, border: '1px solid black', width: 100, height: 30, textAlign: 'center' }}>Kelompok 2</td>
+                        <td style={{ fontSize: 14, border: '1px solid black', width: 100, height: 20, textAlign: 'center' }}>Kelompok 2</td>
                         <td style={{ border: '1px solid black' }}></td>
                         <td style={{ border: '1px solid black' }}></td>
                         <td style={{ border: '1px solid black' }}></td>
@@ -117,12 +126,12 @@ const TabelSensus: React.FC<TableProps> = forwardRef(({ data, kelompok }, ref) =
                         <td style={{ border: '1px solid black' }}></td>
                         <td style={{ border: '1px solid black' }}></td>
                         <td rowSpan={2} style={{ border: '1px solid black', backgroundColor: '#ACE1AF' }}></td>
-                        <td rowSpan={2} style={{ border: '1px solid black' }}></td>
+                        <td rowSpan={2} style={{ border: '1px solid black', textAlign: 'center' }}>{jumlahKK["Kelompok 2"] ? jumlahKK["Kelompok 2"] : 0}</td>
                         <td style={{ border: '1px solid black' }}></td>
                         <td style={{ border: '1px solid black' }}></td>
                     </tr>
                     <tr>
-                        <td style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', textAlign: 'center', height: 25 }}>Jumlah</td>
+                        <td style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', textAlign: 'center', height: 20 }}>Jumlah</td>
                         <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
                         <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
                         <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
@@ -135,7 +144,7 @@ const TabelSensus: React.FC<TableProps> = forwardRef(({ data, kelompok }, ref) =
                     </tr>
 
                     <tr>
-                        <td style={{ fontSize: 14, border: '1px solid black', width: 100, height: 30, textAlign: 'center' }}>Kelompok 3</td>
+                        <td style={{ fontSize: 14, border: '1px solid black', width: 100, height: 20, textAlign: 'center' }}>Kelompok 3</td>
                         <td style={{ border: '1px solid black' }}></td>
                         <td style={{ border: '1px solid black' }}></td>
                         <td style={{ border: '1px solid black' }}></td>
@@ -153,12 +162,12 @@ const TabelSensus: React.FC<TableProps> = forwardRef(({ data, kelompok }, ref) =
                         <td style={{ border: '1px solid black' }}></td>
                         <td style={{ border: '1px solid black' }}></td>
                         <td rowSpan={2} style={{ border: '1px solid black', backgroundColor: '#ACE1AF' }}></td>
-                        <td rowSpan={2} style={{ border: '1px solid black' }}></td>
+                        <td rowSpan={2} style={{ border: '1px solid black', textAlign: 'center' }}>{jumlahKK["Kelompok 3"] ? jumlahKK["Kelompok 3"] : 0}</td>
                         <td style={{ border: '1px solid black' }}></td>
                         <td style={{ border: '1px solid black' }}></td>
                     </tr>
                     <tr>
-                        <td style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', textAlign: 'center', height: 25 }}>Jumlah</td>
+                        <td style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', textAlign: 'center', height: 20 }}>Jumlah</td>
                         <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
                         <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
                         <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
@@ -171,7 +180,7 @@ const TabelSensus: React.FC<TableProps> = forwardRef(({ data, kelompok }, ref) =
                     </tr>
 
                     <tr>
-                        <td style={{ fontSize: 14, border: '1px solid black', width: 100, height: 30, textAlign: 'center' }}>Kelompok 4</td>
+                        <td style={{ fontSize: 14, border: '1px solid black', width: 100, height: 20, textAlign: 'center' }}>Kelompok 4</td>
                         <td style={{ border: '1px solid black' }}></td>
                         <td style={{ border: '1px solid black' }}></td>
                         <td style={{ border: '1px solid black' }}></td>
@@ -189,12 +198,12 @@ const TabelSensus: React.FC<TableProps> = forwardRef(({ data, kelompok }, ref) =
                         <td style={{ border: '1px solid black' }}></td>
                         <td style={{ border: '1px solid black' }}></td>
                         <td rowSpan={2} style={{ border: '1px solid black', backgroundColor: '#ACE1AF' }}></td>
-                        <td rowSpan={2} style={{ border: '1px solid black' }}></td>
+                        <td rowSpan={2} style={{ border: '1px solid black', textAlign: 'center' }}>{jumlahKK["Kelompok 4"] ? jumlahKK["Kelompok 4"] : 0}</td>
                         <td style={{ border: '1px solid black' }}></td>
                         <td style={{ border: '1px solid black' }}></td>
                     </tr>
                     <tr>
-                        <td style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', textAlign: 'center', height: 25 }}>Jumlah</td>
+                        <td style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', textAlign: 'center', height: 20 }}>Jumlah</td>
                         <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
                         <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
                         <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
@@ -207,7 +216,7 @@ const TabelSensus: React.FC<TableProps> = forwardRef(({ data, kelompok }, ref) =
                     </tr>
 
                     <tr>
-                        <td style={{ fontSize: 14, border: '1px solid black', width: 100, height: 30, textAlign: 'center' }}>Kelompok 5</td>
+                        <td style={{ fontSize: 14, border: '1px solid black', width: 100, height: 20, textAlign: 'center' }}>Kelompok 5</td>
                         <td style={{ border: '1px solid black' }}></td>
                         <td style={{ border: '1px solid black' }}></td>
                         <td style={{ border: '1px solid black' }}></td>
@@ -225,12 +234,12 @@ const TabelSensus: React.FC<TableProps> = forwardRef(({ data, kelompok }, ref) =
                         <td style={{ border: '1px solid black' }}></td>
                         <td style={{ border: '1px solid black' }}></td>
                         <td rowSpan={2} style={{ border: '1px solid black', backgroundColor: '#ACE1AF' }}></td>
-                        <td rowSpan={2} style={{ border: '1px solid black' }}></td>
+                        <td rowSpan={2} style={{ border: '1px solid black', textAlign: 'center' }}>{jumlahKK["Kelompok 5"] ? jumlahKK["Kelompok 5"] : 0}</td>
                         <td style={{ border: '1px solid black' }}></td>
                         <td style={{ border: '1px solid black' }}></td>
                     </tr>
                     <tr>
-                        <td style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', textAlign: 'center', height: 25 }}>Jumlah</td>
+                        <td style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', textAlign: 'center', height: 20 }}>Jumlah</td>
                         <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
                         <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
                         <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
@@ -243,7 +252,7 @@ const TabelSensus: React.FC<TableProps> = forwardRef(({ data, kelompok }, ref) =
                     </tr>
 
                     <tr>
-                        <td style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#ACE1AF', textAlign: 'center', height: 25 }}>Jumlah L/P</td>
+                        <td style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#ACE1AF', textAlign: 'center', height: 20 }}>Jumlah L/P</td>
                         <td style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#ACE1AF' }}></td>
                         <td style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#ACE1AF' }}></td>
                         <td style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#ACE1AF' }}></td>
@@ -267,7 +276,7 @@ const TabelSensus: React.FC<TableProps> = forwardRef(({ data, kelompok }, ref) =
                         <td style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#ACE1AF' }}></td>
                     </tr>
                     <tr style={{ fontWeight: "bold" }}>
-                        <td style={{ textAlign: 'center', fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', height: 25 }}>Total</td>
+                        <td style={{ textAlign: 'center', fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', height: 20 }}>Total</td>
                         <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
                         <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
                         <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
@@ -282,7 +291,7 @@ const TabelSensus: React.FC<TableProps> = forwardRef(({ data, kelompok }, ref) =
             </table>
             <div style={{ display: 'flex', justifyContent: 'space-between', paddingTop: 50, paddingLeft: 50, paddingRight: 100 }}>
                 <div style={{ border: '1px solid black', padding: 5 }}>
-                    <p style={{ padding: 0, margin: 0, fontWeight: 'bold', textDecoration: 'underline', marginBottom: 20 }}>Keterangan</p>
+                    <p style={{ padding: 0, margin: 0, fontWeight: 'bold', textDecoration: 'underline', marginBottom: 10 }}>Keterangan</p>
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
                         <div>
                             <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>Balita</p>
