@@ -745,24 +745,35 @@ code {
 
   .color-table-1 {
     background-color: #E2DFD0 !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
   }
 
   .color-table-2 {
     background-color: #FEB941 !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
   }
 
   .color-table-3 {
     background-color: #6DC5D1 !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
   }
 
   .color-table-4 {
     background-color: #ACE1AF !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
   }
 
   .color-table-5 {
     background-color: #FDE49E !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+
   }
-  
+
 }
 
 /* LOADING */
