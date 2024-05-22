@@ -3,335 +3,361 @@ import React, { LegacyRef, forwardRef } from 'react';
 interface TableProps {
     jumlahJenjang: any;
     jumlahKK: Record<string, number>;
+    jumlahDuafa: Record<string, number>;
+    jumlahBinaan: any;
     ref: LegacyRef<HTMLTableElement> | undefined;
+    loading: boolean;
 }
 
-const TabelSensus: React.FC<TableProps> = forwardRef(({ jumlahJenjang, jumlahKK }, ref) => {
-    return (
-        <div ref={ref}>
-            <table style={{ borderCollapse: 'collapse', margin: 'auto' }}>
-                <thead>
-                    <tr>
-                        <th colSpan={25} style={{ textAlign: 'center', padding: '10px 0' }}>
-                            <h3 style={{ margin: 0 }}>DAFTAR SENSUS DESA KELAPA DUA</h3>
-                            <h3 style={{ margin: 0 }}>BULAN {new Date().toLocaleDateString('id-ID', { month: 'long', year: 'numeric' }).toUpperCase()}</h3>
-                        </th>
-                    </tr>
-                    <tr style={{ border: '1px solid black', }}>
-                        <th style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#E2DFD0' }} rowSpan={3}>Kelompok</th>
-                        <th style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FEB941' }} colSpan={10}>Belum Menikah</th>
-                        <th style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#6DC5D1' }} colSpan={2} rowSpan={2}>Menikah</th>
-                        <th style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#E2DFD0' }} colSpan={2} rowSpan={2}>Duda / Janda</th>
-                        <th style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#E2DFD0' }} colSpan={2} rowSpan={2}>Jumlah</th>
-                        <th style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#ACE1AF' }} rowSpan={3}>Total</th>
-                        <th style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#E2DFD0' }} rowSpan={3}>
-                            Jumlah <br /> KK
-                        </th>
-                        <th style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#E2DFD0' }} rowSpan={3}>Duafa</th>
-                        <th style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#E2DFD0' }} colSpan={2} rowSpan={2}>Binaan</th>
-                    </tr>
-                    <tr style={{ border: '1px solid black' }}>
-                        <th style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FEB941' }} colSpan={2}>Balita</th>
-                        <th style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FEB941' }} colSpan={2}>Cabe Rawit</th>
-                        <th style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FEB941' }} colSpan={2}>Pra Remaja</th>
-                        <th style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FEB941' }} colSpan={2}>Remaja</th>
-                        <th style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FEB941' }} colSpan={2}>Dewasa</th>
-                    </tr>
-                    <tr style={{ border: '1px solid black' }}>
-                        <th style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FEB941' }} >L</th>
-                        <th style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FEB941' }} >P</th>
-                        <th style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FEB941' }} >L</th>
-                        <th style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FEB941' }} >P</th>
-                        <th style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FEB941' }} >L</th>
-                        <th style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FEB941' }} >P</th>
-                        <th style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FEB941' }} >L</th>
-                        <th style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FEB941' }} >P</th>
-                        <th style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FEB941' }} >L</th>
-                        <th style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FEB941' }} >P</th>
-                        <th style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#6DC5D1' }} >L</th>
-                        <th style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#6DC5D1' }} >P</th>
-                        <th style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#E2DFD0' }} >L</th>
-                        <th style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#E2DFD0' }} >P</th>
-                        <th style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#E2DFD0' }} >L</th>
-                        <th style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#E2DFD0' }} >P</th>
-                        <th style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#E2DFD0' }} >L</th>
-                        <th style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#E2DFD0' }} >P</th>
+const TabelSensus: React.FC<TableProps> = forwardRef(({ jumlahJenjang, jumlahKK, jumlahDuafa, jumlahBinaan, loading }, ref) => {
+    if (loading) {
+        const jumlahKartuKeluargaK1 = jumlahKK["Kelompok 1"] ? jumlahKK["Kelompok 1"] : 0;
+        const jumlahKartuKeluargaK2 = jumlahKK["Kelompok 2"] ? jumlahKK["Kelompok 2"] : 0;
+        const jumlahKartuKeluargaK3 = jumlahKK["Kelompok 3"] ? jumlahKK["Kelompok 3"] : 0;
+        const jumlahKartuKeluargaK4 = jumlahKK["Kelompok 4"] ? jumlahKK["Kelompok 4"] : 0;
+        const jumlahKartuKeluargaK5 = jumlahKK["Kelompok 5"] ? jumlahKK["Kelompok 5"] : 0;
 
-                    </tr>
-                </thead>
-                <tbody style={{ border: '1px solid black', }}>
+        const jumlahBinaanKelompok1 = jumlahBinaan?.kelompok1.l + jumlahBinaan?.kelompok1.p;
+        const jumlahBinaanKelompok2 = jumlahBinaan?.kelompok2.l + jumlahBinaan?.kelompok2.p;
+        const jumlahBinaanKelompok3 = jumlahBinaan?.kelompok3.l + jumlahBinaan?.kelompok3.p;
+        const jumlahBinaanKelompok4 = jumlahBinaan?.kelompok4.l + jumlahBinaan?.kelompok4.p;
+        const jumlahBinaanKelompok5 = jumlahBinaan?.kelompok5.l + jumlahBinaan?.kelompok5.p;
+        const jumlahBinaanLaki = jumlahBinaan?.kelompok1.l + jumlahBinaan?.kelompok2.l + jumlahBinaan?.kelompok3.l + jumlahBinaan?.kelompok4.l + jumlahBinaan?.kelompok5.l;
+        const jumlahBinaanPerempuan = jumlahBinaan?.kelompok1.p + jumlahBinaan?.kelompok2.p + jumlahBinaan?.kelompok3.p + jumlahBinaan?.kelompok4.p + jumlahBinaan?.kelompok5.p;
+        const totalKeluargaDuafa = jumlahDuafa?.totalKeluargaKelompok1 + jumlahDuafa?.totalKeluargaKelompok2 + jumlahDuafa?.totalKeluargaKelompok3 + jumlahDuafa?.totalKeluargaKelompok4 + jumlahDuafa?.totalKeluargaKelompok5;
+        const totalJiwaDuafa = jumlahDuafa?.totalJiwaKelompok1 + jumlahDuafa?.totalJiwaKelompok2 + jumlahDuafa?.totalJiwaKelompok3 + jumlahDuafa?.totalJiwaKelompok4 + jumlahDuafa?.totalJiwaKelompok5;
+        const totalLakiDesa = jumlahJenjang?.totalBalita_lDesa + jumlahJenjang?.totalCaberawit_lDesa + jumlahJenjang?.totalPraremaja_lDesa + jumlahJenjang?.totalRemaja_lDesa + jumlahJenjang?.totalPraNikah_lDesa + jumlahJenjang?.totalMenikah_lDesa + jumlahJenjang?.totalDudaDesa;
+        const totalPerempuanDesa = jumlahJenjang?.totalBalita_pDesa + jumlahJenjang?.totalCaberawit_pDesa + jumlahJenjang?.totalPraremaja_pDesa + jumlahJenjang?.totalRemaja_pDesa + jumlahJenjang?.totalPraNikah_pDesa + jumlahJenjang?.totalMenikah_pDesa + jumlahJenjang?.totalJandaDesa;
+        const totalKeseluruhanKK = jumlahKartuKeluargaK1 + jumlahKartuKeluargaK2 + jumlahKartuKeluargaK3 + jumlahKartuKeluargaK4 + jumlahKartuKeluargaK5;
+        const totalKeselurhanSensus = jumlahJenjang?.totalKeseluruhanKelompok1 + jumlahJenjang?.totalKeseluruhanKelompok2 + jumlahJenjang?.totalKeseluruhanKelompok3 + jumlahJenjang?.totalKeseluruhanKelompok4 + jumlahJenjang?.totalKeseluruhanKelompok5;
 
-                    <tr style={{ border: '1px solid black', textAlign: 'center' }}>
-                        <td style={{ fontSize: 14, border: '1px solid black', width: 100, height: 20 }}>Kelompok 1</td>
-                        <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok1.balita_l.length}</td>
-                        <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok1.balita_p.length}</td>
-                        <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok1.caberawit_l.length}</td>
-                        <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok1.caberawit_p.length}</td>
-                        <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok1.praremaja_l.length}</td>
-                        <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok1.praremaja_p.length}</td>
-                        <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok1.remaja_l.length}</td>
-                        <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok1.remaja_p.length}</td>
-                        <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok1.pranikah_l.length}</td>
-                        <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok1.pranikah_p.length}</td>
-                        <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok1.menikah_l.length}</td>
-                        <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok1.menikah_p.length}</td>
-                        <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok1.duda.length}</td>
-                        <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok1.janda.length}</td>
-                        <td style={{ border: '1px solid black' }}>{jumlahJenjang.totalLakiKelompok1}</td>
-                        <td style={{ border: '1px solid black' }}>{jumlahJenjang.totalPerempuanKelompok1}</td>
-                        <td rowSpan={2} style={{ border: '1px solid black', backgroundColor: '#ACE1AF', width: 50, textAlign: 'center', fontWeight: 'bold' }}>{jumlahJenjang.totalKeseluruhanKelompok1}</td>
-                        <td rowSpan={2} style={{ border: '1px solid black', width: 50 }}>{jumlahKK["Kelompok 1"] ? jumlahKK["Kelompok 1"] : 0}</td>
-                        <td rowSpan={10} style={{ border: '1px solid black', width: 60 }}>
-                            0 KK <br/>
-                            0 Jiwa <br/>
-                            ---- <br/>
-                            Kel 1: 0 <br/>
-                            Kel 2: 0 <br/>
-                            Kel 3: 0 <br/>
-                            Kel 4: 0 <br/>
-                            Kel 5: 0 <br/>
-                        </td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                    </tr>
-                    <tr style={{ border: '1px solid black', textAlign: 'center' }}>
-                        <td style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', height: 20 }}>Jumlah</td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}>{jumlahJenjang.totalBalitaLKelompok1 + jumlahJenjang.totalBalitaPKelompok1}</td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}>{jumlahJenjang.totalCabeRawitLKelompok1 + jumlahJenjang.totalCabeRawitPKelompok1}</td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}>{jumlahJenjang.totalPraRemajaLKelompok1 + jumlahJenjang.totalPraRemajaPKelompok1}</td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}>{jumlahJenjang.totalRemajaLKelompok1 + jumlahJenjang.totalRemajaPKelompok1}</td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}>{jumlahJenjang.totalPraNikahLKelompok1 + jumlahJenjang.totalPraNikahPKelompok1}</td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}>{jumlahJenjang.totalMenikahLKelompok1 + jumlahJenjang.totalMenikahPKelompok1}</td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}>{jumlahJenjang.totalDudaKelompok1 + jumlahJenjang.totalJandaKelompok1}</td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}>{jumlahJenjang.totalLakiKelompok1 + jumlahJenjang.totalPerempuanKelompok1}</td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
-                    </tr>
+        return (
+            <div ref={ref}>
+                <table style={{ borderCollapse: 'collapse', margin: 'auto' }}>
+                    <thead>
+                        <tr>
+                            <th colSpan={25} style={{ textAlign: 'center', padding: '10px 0' }}>
+                                <h3 style={{ margin: 0 }}>DAFTAR SENSUS DESA KELAPA DUA</h3>
+                                <h3 style={{ margin: 0 }}>BULAN {new Date().toLocaleDateString('id-ID', { month: 'long', year: 'numeric' }).toUpperCase()}</h3>
+                            </th>
+                        </tr>
+                        <tr style={{ fontSize: 14, border: '1px solid black', }}>
+                            <th style={{ border: '1px solid black' }} className='color-table-1' rowSpan={3}>Kelompok</th>
+                            <th style={{ border: '1px solid black' }} className='color-table-2' colSpan={10}>Belum Menikah</th>
+                            <th style={{ border: '1px solid black' }} className='color-table-3' colSpan={2} rowSpan={2}>Menikah</th>
+                            <th style={{ border: '1px solid black' }} className='color-table-1' colSpan={2} rowSpan={2}>Duda / Janda</th>
+                            <th style={{ border: '1px solid black' }} className='color-table-1' colSpan={2} rowSpan={2}>Jumlah</th>
+                            <th style={{ border: '1px solid black' }} className='color-table-4' rowSpan={3}>Total</th>
+                            <th style={{ border: '1px solid black' }} className='color-table-1' rowSpan={3}>
+                                Jumlah <br /> KK
+                            </th>
+                            <th style={{ border: '1px solid black' }} className='color-table-1' rowSpan={3}>Duafa</th>
+                            <th style={{ border: '1px solid black' }} className='color-table-1' colSpan={2} rowSpan={2}>Binaan</th>
+                        </tr>
+                        <tr style={{ fontSize: 14, border: '1px solid black' }}>
+                            <th style={{ border: '1px solid black' }} className='color-table-2' colSpan={2}>Balita</th>
+                            <th style={{ border: '1px solid black' }} className='color-table-2' colSpan={2}>Cabe Rawit</th>
+                            <th style={{ border: '1px solid black' }} className='color-table-2' colSpan={2}>Pra Remaja</th>
+                            <th style={{ border: '1px solid black' }} className='color-table-2' colSpan={2}>Remaja</th>
+                            <th style={{ border: '1px solid black' }} className='color-table-2' colSpan={2}>Dewasa</th>
+                        </tr>
+                        <tr style={{ fontSize: 14, border: '1px solid black' }}>
+                            <th style={{ border: '1px solid black' }} className='color-table-2' >L</th>
+                            <th style={{ border: '1px solid black' }} className='color-table-2' >P</th>
+                            <th style={{ border: '1px solid black' }} className='color-table-2' >L</th>
+                            <th style={{ border: '1px solid black' }} className='color-table-2' >P</th>
+                            <th style={{ border: '1px solid black' }} className='color-table-2' >L</th>
+                            <th style={{ border: '1px solid black' }} className='color-table-2' >P</th>
+                            <th style={{ border: '1px solid black' }} className='color-table-2' >L</th>
+                            <th style={{ border: '1px solid black' }} className='color-table-2' >P</th>
+                            <th style={{ border: '1px solid black' }} className='color-table-2' >L</th>
+                            <th style={{ border: '1px solid black' }} className='color-table-2' >P</th>
+                            <th style={{ border: '1px solid black' }} className='color-table-3' >L</th>
+                            <th style={{ border: '1px solid black' }} className='color-table-3' >P</th>
+                            <th style={{ border: '1px solid black' }} className='color-table-1' >L</th>
+                            <th style={{ border: '1px solid black' }} className='color-table-1' >P</th>
+                            <th style={{ border: '1px solid black' }} className='color-table-1' >L</th>
+                            <th style={{ border: '1px solid black' }} className='color-table-1' >P</th>
+                            <th style={{ border: '1px solid black' }} className='color-table-1' >L</th>
+                            <th style={{ border: '1px solid black' }} className='color-table-1' >P</th>
 
-                    <tr>
-                        <td style={{ fontSize: 14, border: '1px solid black', width: 100, height: 20, textAlign: 'center' }}>Kelompok 2</td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td rowSpan={2} style={{ border: '1px solid black', backgroundColor: '#ACE1AF' }}></td>
-                        <td rowSpan={2} style={{ border: '1px solid black', textAlign: 'center' }}>{jumlahKK["Kelompok 2"] ? jumlahKK["Kelompok 2"] : 0}</td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                    </tr>
-                    <tr>
-                        <td style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', textAlign: 'center', height: 20 }}>Jumlah</td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
-                    </tr>
+                        </tr>
+                    </thead>
+                    <tbody style={{ fontSize: 14, border: '1px solid black', textAlign: 'center' }}>
+                        <tr style={{ border: '1px solid black' }}>
+                            <td style={{ border: '1px solid black', width: 100, height: 20 }}>Kelompok 1</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok1.balita_l.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok1.balita_p.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok1.caberawit_l.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok1.caberawit_p.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok1.praremaja_l.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok1.praremaja_p.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok1.remaja_l.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok1.remaja_p.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok1.pranikah_l.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok1.pranikah_p.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok1.menikah_l.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok1.menikah_p.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok1.duda.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok1.janda.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.totalLakiKelompok1}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.totalPerempuanKelompok1}</td>
+                            <td rowSpan={2} className='color-table-4' style={{ border: '1px solid black', width: 50, fontWeight: 'bold' }}>{jumlahJenjang.totalKeseluruhanKelompok1}</td>
+                            <td rowSpan={2} style={{ border: '1px solid black', width: 50 }}>{jumlahKartuKeluargaK1}</td>
+                            <td rowSpan={10} style={{ border: '1px solid black', width: 60 }}>
+                                {totalKeluargaDuafa} KK <br />
+                                {totalJiwaDuafa} Jiwa <br />
+                                ---- <br />
+                                Kel 1: {jumlahDuafa.totalJiwaKelompok1}<br />
+                                Kel 2: {jumlahDuafa.totalJiwaKelompok2}<br />
+                                Kel 3: {jumlahDuafa.totalJiwaKelompok3}<br />
+                                Kel 4: {jumlahDuafa.totalJiwaKelompok4}<br />
+                                Kel 5: {jumlahDuafa.totalJiwaKelompok5}<br />
+                            </td>
+                            <td style={{ border: '1px solid black' }}>{jumlahBinaan?.kelompok1.l}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahBinaan?.kelompok1.p}</td>
+                        </tr>
+                        <tr style={{ border: '1px solid black' }}>
+                            <td style={{ border: '1px solid black', height: 20 }} className='color-table-5'>Jumlah</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalBalitaLKelompok1 + jumlahJenjang.totalBalitaPKelompok1}</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalCabeRawitLKelompok1 + jumlahJenjang.totalCabeRawitPKelompok1}</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalPraRemajaLKelompok1 + jumlahJenjang.totalPraRemajaPKelompok1}</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalRemajaLKelompok1 + jumlahJenjang.totalRemajaPKelompok1}</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalPraNikahLKelompok1 + jumlahJenjang.totalPraNikahPKelompok1}</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalMenikahLKelompok1 + jumlahJenjang.totalMenikahPKelompok1}</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalDudaKelompok1 + jumlahJenjang.totalJandaKelompok1}</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalLakiKelompok1 + jumlahJenjang.totalPerempuanKelompok1}</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahBinaanKelompok1}</td>
+                        </tr>
 
-                    <tr>
-                        <td style={{ fontSize: 14, border: '1px solid black', width: 100, height: 20, textAlign: 'center' }}>Kelompok 3</td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td rowSpan={2} style={{ border: '1px solid black', backgroundColor: '#ACE1AF' }}></td>
-                        <td rowSpan={2} style={{ border: '1px solid black', textAlign: 'center' }}>{jumlahKK["Kelompok 3"] ? jumlahKK["Kelompok 3"] : 0}</td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                    </tr>
-                    <tr>
-                        <td style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', textAlign: 'center', height: 20 }}>Jumlah</td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
-                    </tr>
+                        <tr style={{ border: '1px solid black', }}>
+                            <td style={{ border: '1px solid black', width: 100, height: 20 }}>Kelompok 2</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok2.balita_l.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok2.balita_p.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok2.caberawit_l.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok2.caberawit_p.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok2.praremaja_l.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok2.praremaja_p.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok2.remaja_l.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok2.remaja_p.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok2.pranikah_l.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok2.pranikah_p.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok2.menikah_l.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok2.menikah_p.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok2.duda.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok2.janda.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.totalLakiKelompok2}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.totalPerempuanKelompok2}</td>
+                            <td rowSpan={2} className='color-table-4' style={{ border: '1px solid black', width: 50, fontWeight: 'bold' }}>{jumlahJenjang.totalKeseluruhanKelompok2}</td>
+                            <td rowSpan={2} style={{ border: '1px solid black' }}>{jumlahKartuKeluargaK2}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahBinaan?.kelompok2.l}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahBinaan?.kelompok2.p}</td>
+                        </tr>
+                        <tr style={{ textAlign: 'center' }}>
+                            <td style={{ border: '1px solid black', height: 20 }} className='color-table-5'>Jumlah</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalBalitaLKelompok2 + jumlahJenjang.totalBalitaPKelompok2}</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalCabeRawitLKelompok2 + jumlahJenjang.totalCabeRawitPKelompok2}</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalPraRemajaLKelompok2 + jumlahJenjang.totalPraRemajaPKelompok2}</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalRemajaLKelompok2 + jumlahJenjang.totalRemajaPKelompok2}</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalPraNikahLKelompok2 + jumlahJenjang.totalPraNikahPKelompok2}</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalMenikahLKelompok2 + jumlahJenjang.totalMenikahPKelompok2}</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalDudaKelompok2 + jumlahJenjang.totalJandaKelompok2}</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalLakiKelompok2 + jumlahJenjang.totalPerempuanKelompok2}</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahBinaanKelompok2}</td>
+                        </tr>
 
-                    <tr>
-                        <td style={{ fontSize: 14, border: '1px solid black', width: 100, height: 20, textAlign: 'center' }}>Kelompok 4</td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td rowSpan={2} style={{ border: '1px solid black', backgroundColor: '#ACE1AF' }}></td>
-                        <td rowSpan={2} style={{ border: '1px solid black', textAlign: 'center' }}>{jumlahKK["Kelompok 4"] ? jumlahKK["Kelompok 4"] : 0}</td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                    </tr>
-                    <tr>
-                        <td style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', textAlign: 'center', height: 20 }}>Jumlah</td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
-                    </tr>
+                        <tr style={{ border: '1px solid black' }}>
+                            <td style={{ border: '1px solid black', width: 100, height: 20 }}>Kelompok 3</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok3.balita_l.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok3.balita_p.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok3.caberawit_l.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok3.caberawit_p.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok3.praremaja_l.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok3.praremaja_p.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok3.remaja_l.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok3.remaja_p.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok3.pranikah_l.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok3.pranikah_p.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok3.menikah_l.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok3.menikah_p.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok3.duda.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok3.janda.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.totalLakiKelompok3}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.totalPerempuanKelompok3}</td>
+                            <td rowSpan={2} className='color-table-4' style={{ border: '1px solid black', width: 50, fontWeight: 'bold' }}>{jumlahJenjang.totalKeseluruhanKelompok3}</td>
+                            <td rowSpan={2} style={{ border: '1px solid black' }}>{jumlahKartuKeluargaK3}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahBinaan?.kelompok3.l}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahBinaan?.kelompok3.p}</td>
+                        </tr>
+                        <tr style={{ textAlign: 'center' }}>
+                            <td style={{ border: '1px solid black', height: 20 }} className='color-table-5'>Jumlah</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalBalitaLKelompok3 + jumlahJenjang.totalBalitaPKelompok3}</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalCabeRawitLKelompok3 + jumlahJenjang.totalCabeRawitPKelompok3}</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalPraRemajaLKelompok3 + jumlahJenjang.totalPraRemajaPKelompok3}</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalRemajaLKelompok3 + jumlahJenjang.totalRemajaPKelompok3}</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalPraNikahLKelompok3 + jumlahJenjang.totalPraNikahPKelompok3}</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalMenikahLKelompok3 + jumlahJenjang.totalMenikahPKelompok3}</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalDudaKelompok3 + jumlahJenjang.totalJandaKelompok3}</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalLakiKelompok3 + jumlahJenjang.totalPerempuanKelompok3}</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahBinaanKelompok3}</td>
+                        </tr>
 
-                    <tr>
-                        <td style={{ fontSize: 14, border: '1px solid black', width: 100, height: 20, textAlign: 'center' }}>Kelompok 5</td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td rowSpan={2} style={{ border: '1px solid black', backgroundColor: '#ACE1AF' }}></td>
-                        <td rowSpan={2} style={{ border: '1px solid black', textAlign: 'center' }}>{jumlahKK["Kelompok 5"] ? jumlahKK["Kelompok 5"] : 0}</td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                    </tr>
-                    <tr>
-                        <td style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', textAlign: 'center', height: 20 }}>Jumlah</td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
-                    </tr>
+                        <tr>
+                            <td style={{ border: '1px solid black', width: 100, height: 20 }}>Kelompok 4</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok4.balita_l.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok4.balita_p.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok4.caberawit_l.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok4.caberawit_p.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok4.praremaja_l.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok4.praremaja_p.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok4.remaja_l.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok4.remaja_p.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok4.pranikah_l.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok4.pranikah_p.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok4.menikah_l.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok4.menikah_p.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok4.duda.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok4.janda.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.totalLakiKelompok4}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.totalPerempuanKelompok4}</td>
+                            <td rowSpan={2} className='color-table-4' style={{ border: '1px solid black', width: 50, fontWeight: 'bold' }}>{jumlahJenjang.totalKeseluruhanKelompok4}</td>
+                            <td rowSpan={2} style={{ border: '1px solid black' }}>{jumlahKartuKeluargaK4}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahBinaan?.kelompok4.l}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahBinaan?.kelompok4.p}</td>
+                        </tr>
+                        <tr>
+                            <td style={{ border: '1px solid black', height: 20 }} className='color-table-5'>Jumlah</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalBalitaLKelompok4 + jumlahJenjang.totalBalitaPKelompok4}</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalCabeRawitLKelompok4 + jumlahJenjang.totalCabeRawitPKelompok4}</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalPraRemajaLKelompok4 + jumlahJenjang.totalPraRemajaPKelompok4}</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalRemajaLKelompok4 + jumlahJenjang.totalRemajaPKelompok4}</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalPraNikahLKelompok4 + jumlahJenjang.totalPraNikahPKelompok4}</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalMenikahLKelompok4 + jumlahJenjang.totalMenikahPKelompok4}</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalDudaKelompok4 + jumlahJenjang.totalJandaKelompok4}</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalLakiKelompok4 + jumlahJenjang.totalPerempuanKelompok4}</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahBinaanKelompok4}</td>
+                        </tr>
 
-                    <tr>
-                        <td style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#ACE1AF', textAlign: 'center', height: 20 }}>Jumlah L/P</td>
-                        <td style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#ACE1AF' }}></td>
-                        <td style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#ACE1AF' }}></td>
-                        <td style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#ACE1AF' }}></td>
-                        <td style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#ACE1AF' }}></td>
-                        <td style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#ACE1AF' }}></td>
-                        <td style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#ACE1AF' }}></td>
-                        <td style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#ACE1AF' }}></td>
-                        <td style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#ACE1AF' }}></td>
-                        <td style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#ACE1AF' }}></td>
-                        <td style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#ACE1AF' }}></td>
-                        <td style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#ACE1AF' }}></td>
-                        <td style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#ACE1AF' }}></td>
-                        <td style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#ACE1AF' }}></td>
-                        <td style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#ACE1AF' }}></td>
-                        <td style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#ACE1AF' }}></td>
-                        <td style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#ACE1AF' }}></td>
-                        <td rowSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#ACE1AF' }}></td>
-                        <td rowSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#ACE1AF' }}></td>
-                        <td rowSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#ACE1AF' }}></td>
-                        <td style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#ACE1AF' }}></td>
-                        <td style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#ACE1AF' }}></td>
-                    </tr>
-                    <tr style={{ fontWeight: "bold" }}>
-                        <td style={{ textAlign: 'center', fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', height: 20 }}>Total</td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
-                        <td colSpan={2} style={{ fontSize: 14, border: '1px solid black', backgroundColor: '#FDE49E', width: 80 }}></td>
-                    </tr>
-                </tbody>
-            </table>
-            <div style={{ display: 'flex', justifyContent: 'space-between', paddingTop: 50, paddingLeft: 50, paddingRight: 100 }}>
-                <div style={{ border: '1px solid black', padding: 5 }}>
-                    <p style={{ padding: 0, margin: 0, fontWeight: 'bold', textDecoration: 'underline', marginBottom: 10 }}>Keterangan</p>
-                    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <div>
-                            <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>Balita</p>
-                            <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>Cabe Rawit</p>
-                            <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>Pra Remaja</p>
-                            <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>Remaja</p>
-                            <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>Dewasa</p>
-                            <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>L</p>
-                            <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>P</p>
+                        <tr>
+                            <td style={{ border: '1px solid black', width: 100, height: 20 }}>Kelompok 5</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok5.balita_l.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok5.balita_p.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok5.caberawit_l.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok5.caberawit_p.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok5.praremaja_l.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok5.praremaja_p.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok5.remaja_l.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok5.remaja_p.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok5.pranikah_l.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok5.pranikah_p.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok5.menikah_l.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok5.menikah_p.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok5.duda.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok5.janda.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.totalLakiKelompok5}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.totalPerempuanKelompok5}</td>
+                            <td rowSpan={2} className='color-table-4' style={{ border: '1px solid black', width: 50, fontWeight: 'bold' }}>{jumlahJenjang.totalKeseluruhanKelompok5}</td>
+                            <td rowSpan={2} style={{ border: '1px solid black' }}>{jumlahKartuKeluargaK5}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahBinaan?.kelompok5.l}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahBinaan?.kelompok5.p}</td>
+                        </tr>
+                        <tr>
+                            <td style={{ border: '1px solid black', height: 20 }} className='color-table-5'>Jumlah</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalBalitaLKelompok5 + jumlahJenjang.totalBalitaPKelompok5}</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalCabeRawitLKelompok5 + jumlahJenjang.totalCabeRawitPKelompok5}</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalPraRemajaLKelompok5 + jumlahJenjang.totalPraRemajaPKelompok5}</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalRemajaLKelompok5 + jumlahJenjang.totalRemajaPKelompok5}</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalPraNikahLKelompok5 + jumlahJenjang.totalPraNikahPKelompok5}</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalMenikahLKelompok5 + jumlahJenjang.totalMenikahPKelompok5}</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalDudaKelompok5 + jumlahJenjang.totalJandaKelompok5}</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalLakiKelompok5 + jumlahJenjang.totalPerempuanKelompok5}</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahBinaanKelompok5}</td>
+                        </tr>
+
+                        <tr style={{ fontWeight: 'bold' }}>
+                            <td className='color-table-4' style={{ border: '1px solid black', height: 20 }}>Jumlah L/P</td>
+                            <td style={{ border: '1px solid black' }} className='color-table-4'>{jumlahJenjang.totalBalita_lDesa}</td>
+                            <td style={{ border: '1px solid black' }} className='color-table-4'>{jumlahJenjang.totalBalita_pDesa}</td>
+                            <td style={{ border: '1px solid black' }} className='color-table-4'>{jumlahJenjang.totalCaberawit_lDesa}</td>
+                            <td style={{ border: '1px solid black' }} className='color-table-4'>{jumlahJenjang.totalCaberawit_pDesa}</td>
+                            <td style={{ border: '1px solid black' }} className='color-table-4'>{jumlahJenjang.totalPraremaja_lDesa}</td>
+                            <td style={{ border: '1px solid black' }} className='color-table-4'>{jumlahJenjang.totalPraremaja_pDesa}</td>
+                            <td style={{ border: '1px solid black' }} className='color-table-4'>{jumlahJenjang.totalRemaja_lDesa}</td>
+                            <td style={{ border: '1px solid black' }} className='color-table-4'>{jumlahJenjang.totalRemaja_pDesa}</td>
+                            <td style={{ border: '1px solid black' }} className='color-table-4'>{jumlahJenjang.totalPraNikah_lDesa}</td>
+                            <td style={{ border: '1px solid black' }} className='color-table-4'>{jumlahJenjang.totalPraNikah_pDesa}</td>
+                            <td style={{ border: '1px solid black' }} className='color-table-4'>{jumlahJenjang.totalMenikah_lDesa}</td>
+                            <td style={{ border: '1px solid black' }} className='color-table-4'>{jumlahJenjang.totalMenikah_pDesa}</td>
+                            <td style={{ border: '1px solid black' }} className='color-table-4'>{jumlahJenjang.totalDudaDesa}</td>
+                            <td style={{ border: '1px solid black' }} className='color-table-4'>{jumlahJenjang.totalJandaDesa}</td>
+                            <td style={{ border: '1px solid black' }} className='color-table-4'>{totalLakiDesa}</td>
+                            <td style={{ border: '1px solid black' }} className='color-table-4'>{totalPerempuanDesa}</td>
+                            <td rowSpan={2} style={{ border: '1px solid black' }} className='color-table-4'>{totalKeselurhanSensus}</td>
+                            <td rowSpan={2} style={{ border: '1px solid black' }} className='color-table-4'>{totalKeseluruhanKK}</td>
+                            <td rowSpan={2} style={{ border: '1px solid black' }} className='color-table-4'>{totalJiwaDuafa}</td>
+                            <td style={{ border: '1px solid black' }} className='color-table-4'>{jumlahBinaanLaki}</td>
+                            <td style={{ border: '1px solid black' }} className='color-table-4'>{jumlahBinaanPerempuan}</td>
+                        </tr>
+                        <tr style={{ fontWeight: "bold" }}>
+                            <td style={{ textAlign: 'center', border: '1px solid black', height: 20 }} className='color-table-5'>Total</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalBalita_lDesa + jumlahJenjang.totalBalita_pDesa}</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalCaberawit_lDesa + jumlahJenjang.totalCaberawit_pDesa}</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalPraremaja_lDesa + jumlahJenjang.totalPraremaja_pDesa}</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalRemaja_lDesa + jumlahJenjang.totalRemaja_pDesa}</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalPraNikah_lDesa + jumlahJenjang.totalPraNikah_pDesa}</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalMenikah_lDesa + jumlahJenjang.totalMenikah_pDesa}</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalDudaDesa + jumlahJenjang.totalJandaDesa}</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{totalLakiDesa + totalPerempuanDesa}</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahBinaanLaki + jumlahBinaanPerempuan}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div style={{ display: 'flex', justifyContent: 'space-between', paddingTop: 50, paddingLeft: 50, paddingRight: 100 }}>
+                    <div style={{ border: '1px solid black', padding: 5 }}>
+                        <p style={{ padding: 0, margin: 0, fontWeight: 'bold', textDecoration: 'underline', marginBottom: 10 }}>Keterangan</p>
+                        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                            <div>
+                                <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>Balita</p>
+                                <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>Cabe Rawit</p>
+                                <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>Pra Remaja</p>
+                                <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>Remaja</p>
+                                <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>Dewasa</p>
+                                <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>L</p>
+                                <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>P</p>
+                            </div>
+                            <div style={{ marginLeft: 20 }}>
+                                <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>:</p>
+                                <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>:</p>
+                                <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>:</p>
+                                <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>:</p>
+                                <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>:</p>
+                                <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>:</p>
+                                <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>:</p>
+                            </div>
+                            <div style={{ marginLeft: 20 }}>
+                                <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>0 - 5 Tahun (5 - 6 Tahun/PAUD)</p>
+                                <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>6/7 - 12/13 Tahun (SD)</p>
+                                <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>12/13 - 15/16 Tahun (SMP)</p>
+                                <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>15/16 - 18/19 Tahun (SMA)</p>
+                                <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>18/19 Tahun keatas (Belum Nikah)</p>
+                                <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>Laki - laki</p>
+                                <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>Perempuan</p>
+                            </div>
                         </div>
-                        <div style={{ marginLeft: 20 }}>
-                            <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>:</p>
-                            <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>:</p>
-                            <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>:</p>
-                            <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>:</p>
-                            <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>:</p>
-                            <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>:</p>
-                            <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>:</p>
-                        </div>
-                        <div style={{ marginLeft: 20 }}>
-                            <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>0 - 5 Tahun (5 - 6 Tahun/PAUD)</p>
-                            <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>6/7 - 12/13 Tahun (SD)</p>
-                            <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>12/13 - 15/16 Tahun (SMP)</p>
-                            <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>15/16 - 18/19 Tahun (SMA)</p>
-                            <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>18/19 Tahun keatas (Belum Nikah)</p>
-                            <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>Laki - laki</p>
-                            <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>Perempuan</p>
-                        </div>
+
                     </div>
+                    <div >
+                        <p>Depok, {new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
 
+                        <p style={{ padding: 0, margin: 0, marginTop: 100, textDecoration: 'underline' }}>H. Sulaiman</p>
+                        <p style={{ padding: 0, margin: 0, marginTop: 10, fontWeight: 'bold' }}>KI Desa</p>
+                    </div>
                 </div>
-                <div >
-                    <p>Depok, {new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
+            </div >
+        );
+    }
+    return null
 
-                    <p style={{ padding: 0, margin: 0, marginTop: 100, textDecoration: 'underline' }}>H. Sulaiman</p>
-                    <p style={{ padding: 0, margin: 0, marginTop: 10, fontWeight: 'bold' }}>KI Desa</p>
-                </div>
-            </div>
-        </div >
-    );
 });
 
 export default TabelSensus;
