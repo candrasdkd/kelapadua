@@ -43,13 +43,13 @@ const PDFGenerator = () => {
     const [text, setText] = useState("teks lama membosankan");
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const emptyData = [
-        { NAMA: "KOSONG", "JENIS KELAMIN": "", JENJANG: "", "STATUS PERNIKAHAN": "", KELOMPOK: "", PRIORITY: "" },
-        { NAMA: "KOSONG", "JENIS KELAMIN": "", JENJANG: "", "STATUS PERNIKAHAN": "", KELOMPOK: "", PRIORITY: "" },
-        { NAMA: "KOSONG", "JENIS KELAMIN": "", JENJANG: "", "STATUS PERNIKAHAN": "", KELOMPOK: "", PRIORITY: "" },
-        { NAMA: "KOSONG", "JENIS KELAMIN": "", JENJANG: "", "STATUS PERNIKAHAN": "", KELOMPOK: "", PRIORITY: "" },
-        { NAMA: "KOSONG", "JENIS KELAMIN": "", JENJANG: "", "STATUS PERNIKAHAN": "", KELOMPOK: "", PRIORITY: "" },
-        { NAMA: "KOSONG", "JENIS KELAMIN": "", JENJANG: "", "STATUS PERNIKAHAN": "", KELOMPOK: "", PRIORITY: "" },
-        { NAMA: "KOSONG", "JENIS KELAMIN": "", JENJANG: "", "STATUS PERNIKAHAN": "", KELOMPOK: "", PRIORITY: "" },
+        { NAMA: "KOSONG", "JENIS KELAMIN": "", JENJANG: "", "STATUS PERNIKAHAN": "", "STATUS PONDOK": "", "STATUS AKTIF": "", KELOMPOK: "", PRIORITY: "" },
+        { NAMA: "KOSONG", "JENIS KELAMIN": "", JENJANG: "", "STATUS PERNIKAHAN": "", "STATUS PONDOK": "", "STATUS AKTIF": "", KELOMPOK: "", PRIORITY: "" },
+        { NAMA: "KOSONG", "JENIS KELAMIN": "", JENJANG: "", "STATUS PERNIKAHAN": "", "STATUS PONDOK": "", "STATUS AKTIF": "", KELOMPOK: "", PRIORITY: "" },
+        { NAMA: "KOSONG", "JENIS KELAMIN": "", JENJANG: "", "STATUS PERNIKAHAN": "", "STATUS PONDOK": "", "STATUS AKTIF": "", KELOMPOK: "", PRIORITY: "" },
+        { NAMA: "KOSONG", "JENIS KELAMIN": "", JENJANG: "", "STATUS PERNIKAHAN": "", "STATUS PONDOK": "", "STATUS AKTIF": "", KELOMPOK: "", PRIORITY: "" },
+        { NAMA: "KOSONG", "JENIS KELAMIN": "", JENJANG: "", "STATUS PERNIKAHAN": "", "STATUS PONDOK": "", "STATUS AKTIF": "", KELOMPOK: "", PRIORITY: "" },
+        { NAMA: "KOSONG", "JENIS KELAMIN": "", JENJANG: "", "STATUS PERNIKAHAN": "", "STATUS PONDOK": "", "STATUS AKTIF": "", KELOMPOK: "", PRIORITY: "" },
         // Tambahkan data kosong sesuai kebutuhan
     ];
 
@@ -96,50 +96,54 @@ const PDFGenerator = () => {
 
     const handleDownload = (() => {
         setLoading(true)
+        const params = "DATA JAMAAH DESA"
+        fetch(`https://sheetdb.io/api/v1/uijf2hx2kvi0k?sheet=${params}`)
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then((data) => {
+                const transformData = data.map((item: any) => {
+                    return {
+                        NAMA: item.NAMA,
+                        "JENIS KELAMIN": item["JENIS KELAMIN"],
+                        JENJANG: item.JENJANG,
+                        "STATUS PERNIKAHAN": item["STATUS PERNIKAHAN"],
+                        "STATUS PONDOK": item["STATUS PONDOK"],
+                        "STATUS AKTIF": item["STATUS AKTIF"],
+                        KELOMPOK: item.KELOMPOK,
+                        PRIORITY: parseInt(item.PRIORITY),
+                    }
+                })
+                setData(transformData);
+                setFilteredData(transformData);
+                setShowModal(true)
+                setLoading(false);
+            })
+            .catch((error: any) => {
+                setLoading(false);
+                Alert(error)
+            });
 
-        // fetch('https://sheetdb.io/api/v1/uijf2hx2kvi0k?sheet=DATA JAMAAH DESA')
-        //     .then((response) => {
-        //         if (!response.ok) {
-        //             throw new Error('Network response was not ok');
-        //         }
-        //         return response.json();
-        //     })
-        //     .then((data) => {
-        //         const transformData = data.map((item: any) => {
-        //             return {
-        //                 NAMA: item.NAMA,
-        //                 "JENIS KELAMIN": item["JENIS KELAMIN"],
-        //                 JENJANG: item.JENJANG,
-        //                 "STATUS PERNIKAHAN": item["STATUS PERNIKAHAN"],
-        //                 KELOMPOK: item.KELOMPOK,
-        //                 PRIORITY: parseInt(item.PRIORITY),
-        //             }
-        //         })
-        //         setData(transformData);
-        //         setFilteredData(transformData);
-        //         setShowModal(true)
-        //         setLoading(false);
-        //     })
-        //     .catch((error: any) => {
-        //         setLoading(false);
-        //         Alert(error)
-        //     });
-
-        const transformData = DataSensus.map((item: any) => {
-            return {
-                NAMA: item.NAMA,
-                "JENIS KELAMIN": item["JENIS KELAMIN"],
-                JENJANG: item.JENJANG,
-                "STATUS PERNIKAHAN": item["STATUS PERNIKAHAN"],
-                KELOMPOK: item.KELOMPOK,
-                PRIORITY: parseInt(item.PRIORITY),
-            }
-        })
-        setTimeout(() => {
-            setData(transformData);
-            setFilteredData(transformData);
-            setLoading(false);
-        }, 2000);
+        // const transformData = DataSensus.map((item: any) => {
+        //     return {
+        //         NAMA: item.NAMA,
+        //         "JENIS KELAMIN": item["JENIS KELAMIN"],
+        //         JENJANG: item.JENJANG,
+        //         "STATUS PERNIKAHAN": item["STATUS PERNIKAHAN"],
+        //         "STATUS PONDOK": item["STATUS PONDOK"],
+        //         "STATUS AKTIF": item["STATUS AKTIF"],
+        //         KELOMPOK: item.KELOMPOK,
+        //         PRIORITY: parseInt(item.PRIORITY),
+        //     }
+        // })
+        // setTimeout(() => {
+        //     setData(transformData);
+        //     setFilteredData(transformData);
+        //     setLoading(false);
+        // }, 2000);
     });
 
     const handleFilter = useCallback(() => {
@@ -151,7 +155,8 @@ const PDFGenerator = () => {
                     (selectedJenjang.label === "Muda/i" && (item.JENJANG === "Remaja" || item.JENJANG === "Pra Remaja" || item.JENJANG === "Pra Nikah")) ||
                     (selectedJenjang.label === "Bukan Muda/i" && (item.JENJANG === "Dewasa" || item.JENJANG === "Lansia"))
                 ) &&
-                (selectedJenisKelamin.label === "Semua" || item["JENIS KELAMIN"] === selectedJenisKelamin.label)
+                (selectedJenisKelamin.label === "Semua" || item["JENIS KELAMIN"] === selectedJenisKelamin.label) &&
+                (item["STATUS PONDOK"] !== "Luar Daerah" && item["STATUS AKTIF"] !== "Tidak Aktif")
             );
         });
 

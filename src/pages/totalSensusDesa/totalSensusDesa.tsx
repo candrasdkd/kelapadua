@@ -255,7 +255,13 @@ const TotalSensus = () => {
 
                 const groupedData = createGroupedData();
 
-                data.forEach((person: { KELOMPOK: string, JENJANG: string, "JENIS KELAMIN": string, "STATUS PERNIKAHAN": string }) => {
+                let filteredData = data.filter((item: any) => {
+                    return (
+                        (item["STATUS PONDOK"] !== "Luar Daerah" && item["STATUS AKTIF"] !== "Tidak Aktif")
+                    );
+                });
+
+                filteredData.forEach((person: { KELOMPOK: string, JENJANG: string, "JENIS KELAMIN": string, "STATUS PERNIKAHAN": string }) => {
                     const { KELOMPOK, JENJANG, "JENIS KELAMIN": JENIS_KELAMIN, "STATUS PERNIKAHAN": STATUS_PERNIKAHAN } = person;
 
                     if (KELOMPOK && KELOMPOK.startsWith("Kelompok ")) {
