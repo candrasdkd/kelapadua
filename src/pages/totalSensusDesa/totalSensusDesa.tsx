@@ -231,6 +231,8 @@ const TotalSensus = () => {
                 const initialCategories = {
                     balita_l: [],
                     balita_p: [],
+                    paud_l: [],
+                    paud_p: [],
                     caberawit_l: [],
                     caberawit_p: [],
                     praremaja_l: [],
@@ -272,7 +274,9 @@ const TotalSensus = () => {
 
                             if (JENJANG === "Balita") {
                                 JENIS_KELAMIN === "Laki - Laki" ? categories.balita_l.push(person) : categories.balita_p.push(person);
-                            } else if (JENJANG === "Cabe Rawit") {
+                            } else if (JENJANG === "Paud") {
+                                JENIS_KELAMIN === "Laki - Laki" ? categories.paud_l.push(person) : categories.paud_p.push(person);
+                            } else if (JENJANG === "Caberawit") {
                                 JENIS_KELAMIN === "Laki - Laki" ? categories.caberawit_l.push(person) : categories.caberawit_p.push(person);
                             } else if (JENJANG === "Pra Remaja") {
                                 JENIS_KELAMIN === "Laki - Laki" ? categories.praremaja_l.push(person) : categories.praremaja_p.push(person);
@@ -296,6 +300,10 @@ const TotalSensus = () => {
                     .reduce((sum, group) => sum + groupedData[group].balita_l.length, 0);
                 const totalBalita_pDesa = (['kelompok1', 'kelompok2', 'kelompok3', 'kelompok4', 'kelompok5'] as const)
                     .reduce((sum, group) => sum + groupedData[group].balita_p.length, 0);
+                const totalPaud_lDesa = (['kelompok1', 'kelompok2', 'kelompok3', 'kelompok4', 'kelompok5'] as const)
+                    .reduce((sum, group) => sum + groupedData[group].paud_l.length, 0);
+                const totalPaud_pDesa = (['kelompok1', 'kelompok2', 'kelompok3', 'kelompok4', 'kelompok5'] as const)
+                    .reduce((sum, group) => sum + groupedData[group].paud_p.length, 0);
                 const totalCaberawit_lDesa = (['kelompok1', 'kelompok2', 'kelompok3', 'kelompok4', 'kelompok5'] as const)
                     .reduce((sum, group) => sum + groupedData[group].caberawit_l.length, 0);
                 const totalCaberawit_pDesa = (['kelompok1', 'kelompok2', 'kelompok3', 'kelompok4', 'kelompok5'] as const)
@@ -325,11 +333,13 @@ const TotalSensus = () => {
                 setCountJenjang({
                     ...groupedData,
                     // KELOMPOK 1
-                    totalLakiKelompok1: groupedData.kelompok1.balita_l.length + groupedData.kelompok1.caberawit_l.length + groupedData.kelompok1.praremaja_l.length + groupedData.kelompok1.remaja_l.length + groupedData.kelompok1.pranikah_l.length + groupedData.kelompok1.menikah_l.length + groupedData.kelompok1.duda.length,
-                    totalPerempuanKelompok1: groupedData.kelompok1.balita_p.length + groupedData.kelompok1.caberawit_p.length + groupedData.kelompok1.praremaja_p.length + groupedData.kelompok1.remaja_p.length + groupedData.kelompok1.pranikah_p.length + groupedData.kelompok1.menikah_p.length + groupedData.kelompok1.janda.length,
-                    totalKeseluruhanKelompok1: groupedData.kelompok1.balita_l.length + groupedData.kelompok1.caberawit_l.length + groupedData.kelompok1.praremaja_l.length + groupedData.kelompok1.remaja_l.length + groupedData.kelompok1.pranikah_l.length + groupedData.kelompok1.menikah_l.length + groupedData.kelompok1.duda.length + groupedData.kelompok1.balita_p.length + groupedData.kelompok1.caberawit_p.length + groupedData.kelompok1.praremaja_p.length + groupedData.kelompok1.remaja_p.length + groupedData.kelompok1.pranikah_p.length + groupedData.kelompok1.menikah_p.length + groupedData.kelompok1.janda.length,
+                    totalLakiKelompok1: groupedData.kelompok1.balita_l.length + groupedData.kelompok1.paud_l.length + groupedData.kelompok1.caberawit_l.length + groupedData.kelompok1.praremaja_l.length + groupedData.kelompok1.remaja_l.length + groupedData.kelompok1.pranikah_l.length + groupedData.kelompok1.menikah_l.length + groupedData.kelompok1.duda.length,
+                    totalPerempuanKelompok1: groupedData.kelompok1.balita_p.length + groupedData.kelompok1.paud_p.length + groupedData.kelompok1.caberawit_p.length + groupedData.kelompok1.praremaja_p.length + groupedData.kelompok1.remaja_p.length + groupedData.kelompok1.pranikah_p.length + groupedData.kelompok1.menikah_p.length + groupedData.kelompok1.janda.length,
+                    totalKeseluruhanKelompok1: groupedData.kelompok1.balita_l.length + groupedData.kelompok1.paud_l.length + groupedData.kelompok1.caberawit_l.length + groupedData.kelompok1.praremaja_l.length + groupedData.kelompok1.remaja_l.length + groupedData.kelompok1.pranikah_l.length + groupedData.kelompok1.menikah_l.length + groupedData.kelompok1.duda.length + groupedData.kelompok1.balita_p.length + groupedData.kelompok1.paud_p.length + groupedData.kelompok1.caberawit_p.length + groupedData.kelompok1.praremaja_p.length + groupedData.kelompok1.remaja_p.length + groupedData.kelompok1.pranikah_p.length + groupedData.kelompok1.menikah_p.length + groupedData.kelompok1.janda.length,
                     totalBalitaLKelompok1: groupedData.kelompok1.balita_l.length,
                     totalBalitaPKelompok1: groupedData.kelompok1.balita_p.length,
+                    totalPaudLKelompok1: groupedData.kelompok1.paud_l.length,
+                    totalPaudPKelompok1: groupedData.kelompok1.paud_p.length,
                     totalCabeRawitLKelompok1: groupedData.kelompok1.caberawit_l.length,
                     totalCabeRawitPKelompok1: groupedData.kelompok1.caberawit_p.length,
                     totalPraRemajaLKelompok1: groupedData.kelompok1.praremaja_l.length,
@@ -344,11 +354,13 @@ const TotalSensus = () => {
                     totalJandaKelompok1: groupedData.kelompok1.janda.length,
 
                     // KELOMPOK 2
-                    totalLakiKelompok2: groupedData.kelompok2.balita_l.length + groupedData.kelompok2.caberawit_l.length + groupedData.kelompok2.praremaja_l.length + groupedData.kelompok2.remaja_l.length + groupedData.kelompok2.pranikah_l.length + groupedData.kelompok2.menikah_l.length + groupedData.kelompok2.duda.length,
-                    totalPerempuanKelompok2: groupedData.kelompok2.balita_p.length + groupedData.kelompok2.caberawit_p.length + groupedData.kelompok2.praremaja_p.length + groupedData.kelompok2.remaja_p.length + groupedData.kelompok2.pranikah_p.length + groupedData.kelompok2.menikah_p.length + groupedData.kelompok2.janda.length,
-                    totalKeseluruhanKelompok2: groupedData.kelompok2.balita_l.length + groupedData.kelompok2.caberawit_l.length + groupedData.kelompok2.praremaja_l.length + groupedData.kelompok2.remaja_l.length + groupedData.kelompok2.pranikah_l.length + groupedData.kelompok2.menikah_l.length + groupedData.kelompok2.duda.length + groupedData.kelompok2.balita_p.length + groupedData.kelompok2.caberawit_p.length + groupedData.kelompok2.praremaja_p.length + groupedData.kelompok2.remaja_p.length + groupedData.kelompok2.pranikah_p.length + groupedData.kelompok2.menikah_p.length + groupedData.kelompok2.janda.length,
+                    totalLakiKelompok2: groupedData.kelompok2.balita_l.length + groupedData.kelompok2.paud_l.length + groupedData.kelompok2.caberawit_l.length + groupedData.kelompok2.praremaja_l.length + groupedData.kelompok2.remaja_l.length + groupedData.kelompok2.pranikah_l.length + groupedData.kelompok2.menikah_l.length + groupedData.kelompok2.duda.length,
+                    totalPerempuanKelompok2: groupedData.kelompok2.balita_p.length + groupedData.kelompok2.paud_p.length + groupedData.kelompok2.caberawit_p.length + groupedData.kelompok2.praremaja_p.length + groupedData.kelompok2.remaja_p.length + groupedData.kelompok2.pranikah_p.length + groupedData.kelompok2.menikah_p.length + groupedData.kelompok2.janda.length,
+                    totalKeseluruhanKelompok2: groupedData.kelompok2.balita_l.length + groupedData.kelompok2.paud_l.length + groupedData.kelompok2.caberawit_l.length + groupedData.kelompok2.praremaja_l.length + groupedData.kelompok2.remaja_l.length + groupedData.kelompok2.pranikah_l.length + groupedData.kelompok2.menikah_l.length + groupedData.kelompok2.duda.length + groupedData.kelompok2.balita_p.length + groupedData.kelompok2.paud_p.length + groupedData.kelompok2.caberawit_p.length + groupedData.kelompok2.praremaja_p.length + groupedData.kelompok2.remaja_p.length + groupedData.kelompok2.pranikah_p.length + groupedData.kelompok2.menikah_p.length + groupedData.kelompok2.janda.length,
                     totalBalitaLKelompok2: groupedData.kelompok2.balita_l.length,
                     totalBalitaPKelompok2: groupedData.kelompok2.balita_p.length,
+                    totalPaudLKelompok2: groupedData.kelompok2.paud_l.length,
+                    totalPaudPKelompok2: groupedData.kelompok2.paud_p.length,
                     totalCabeRawitLKelompok2: groupedData.kelompok2.caberawit_l.length,
                     totalCabeRawitPKelompok2: groupedData.kelompok2.caberawit_p.length,
                     totalPraRemajaLKelompok2: groupedData.kelompok2.praremaja_l.length,
@@ -363,11 +375,13 @@ const TotalSensus = () => {
                     totalJandaKelompok2: groupedData.kelompok2.janda.length,
 
                     // KELOMPOK 3
-                    totalLakiKelompok3: groupedData.kelompok3.balita_l.length + groupedData.kelompok3.caberawit_l.length + groupedData.kelompok3.praremaja_l.length + groupedData.kelompok3.remaja_l.length + groupedData.kelompok3.pranikah_l.length + groupedData.kelompok3.menikah_l.length + groupedData.kelompok3.duda.length,
-                    totalPerempuanKelompok3: groupedData.kelompok3.balita_p.length + groupedData.kelompok3.caberawit_p.length + groupedData.kelompok3.praremaja_p.length + groupedData.kelompok3.remaja_p.length + groupedData.kelompok3.pranikah_p.length + groupedData.kelompok3.menikah_p.length + groupedData.kelompok3.janda.length,
-                    totalKeseluruhanKelompok3: groupedData.kelompok3.balita_l.length + groupedData.kelompok3.caberawit_l.length + groupedData.kelompok3.praremaja_l.length + groupedData.kelompok3.remaja_l.length + groupedData.kelompok3.pranikah_l.length + groupedData.kelompok3.menikah_l.length + groupedData.kelompok3.duda.length + groupedData.kelompok3.balita_p.length + groupedData.kelompok3.caberawit_p.length + groupedData.kelompok3.praremaja_p.length + groupedData.kelompok3.remaja_p.length + groupedData.kelompok3.pranikah_p.length + groupedData.kelompok3.menikah_p.length + groupedData.kelompok3.janda.length,
+                    totalLakiKelompok3: groupedData.kelompok3.balita_l.length + groupedData.kelompok3.paud_l.length + groupedData.kelompok3.caberawit_l.length + groupedData.kelompok3.praremaja_l.length + groupedData.kelompok3.remaja_l.length + groupedData.kelompok3.pranikah_l.length + groupedData.kelompok3.menikah_l.length + groupedData.kelompok3.duda.length,
+                    totalPerempuanKelompok3: groupedData.kelompok3.balita_p.length + groupedData.kelompok3.paud_p.length + groupedData.kelompok3.caberawit_p.length + groupedData.kelompok3.praremaja_p.length + groupedData.kelompok3.remaja_p.length + groupedData.kelompok3.pranikah_p.length + groupedData.kelompok3.menikah_p.length + groupedData.kelompok3.janda.length,
+                    totalKeseluruhanKelompok3: groupedData.kelompok3.balita_l.length + groupedData.kelompok3.paud_l.length + groupedData.kelompok3.caberawit_l.length + groupedData.kelompok3.praremaja_l.length + groupedData.kelompok3.remaja_l.length + groupedData.kelompok3.pranikah_l.length + groupedData.kelompok3.menikah_l.length + groupedData.kelompok3.duda.length + groupedData.kelompok3.balita_p.length + groupedData.kelompok3.paud_p.length + groupedData.kelompok3.caberawit_p.length + groupedData.kelompok3.praremaja_p.length + groupedData.kelompok3.remaja_p.length + groupedData.kelompok3.pranikah_p.length + groupedData.kelompok3.menikah_p.length + groupedData.kelompok3.janda.length,
                     totalBalitaLKelompok3: groupedData.kelompok3.balita_l.length,
                     totalBalitaPKelompok3: groupedData.kelompok3.balita_p.length,
+                    totalPaudLKelompok3: groupedData.kelompok3.paud_l.length,
+                    totalPaudPKelompok3: groupedData.kelompok3.paud_p.length,
                     totalCabeRawitLKelompok3: groupedData.kelompok3.caberawit_l.length,
                     totalCabeRawitPKelompok3: groupedData.kelompok3.caberawit_p.length,
                     totalPraRemajaLKelompok3: groupedData.kelompok3.praremaja_l.length,
@@ -382,11 +396,13 @@ const TotalSensus = () => {
                     totalJandaKelompok3: groupedData.kelompok3.janda.length,
 
                     // KELOMPOK 4
-                    totalLakiKelompok4: groupedData.kelompok4.balita_l.length + groupedData.kelompok4.caberawit_l.length + groupedData.kelompok4.praremaja_l.length + groupedData.kelompok4.remaja_l.length + groupedData.kelompok4.pranikah_l.length + groupedData.kelompok4.menikah_l.length + groupedData.kelompok4.duda.length,
-                    totalPerempuanKelompok4: groupedData.kelompok4.balita_p.length + groupedData.kelompok4.caberawit_p.length + groupedData.kelompok4.praremaja_p.length + groupedData.kelompok4.remaja_p.length + groupedData.kelompok4.pranikah_p.length + groupedData.kelompok4.menikah_p.length + groupedData.kelompok4.janda.length,
-                    totalKeseluruhanKelompok4: groupedData.kelompok4.balita_l.length + groupedData.kelompok4.caberawit_l.length + groupedData.kelompok4.praremaja_l.length + groupedData.kelompok4.remaja_l.length + groupedData.kelompok4.pranikah_l.length + groupedData.kelompok4.menikah_l.length + groupedData.kelompok4.duda.length + groupedData.kelompok4.balita_p.length + groupedData.kelompok4.caberawit_p.length + groupedData.kelompok4.praremaja_p.length + groupedData.kelompok4.remaja_p.length + groupedData.kelompok4.pranikah_p.length + groupedData.kelompok4.menikah_p.length + groupedData.kelompok4.janda.length,
+                    totalLakiKelompok4: groupedData.kelompok4.balita_l.length + groupedData.kelompok4.paud_l.length + groupedData.kelompok4.caberawit_l.length + groupedData.kelompok4.praremaja_l.length + groupedData.kelompok4.remaja_l.length + groupedData.kelompok4.pranikah_l.length + groupedData.kelompok4.menikah_l.length + groupedData.kelompok4.duda.length,
+                    totalPerempuanKelompok4: groupedData.kelompok4.balita_p.length + groupedData.kelompok4.paud_p.length + groupedData.kelompok4.caberawit_p.length + groupedData.kelompok4.praremaja_p.length + groupedData.kelompok4.remaja_p.length + groupedData.kelompok4.pranikah_p.length + groupedData.kelompok4.menikah_p.length + groupedData.kelompok4.janda.length,
+                    totalKeseluruhanKelompok4: groupedData.kelompok4.balita_l.length + groupedData.kelompok4.paud_l.length + groupedData.kelompok4.caberawit_l.length + groupedData.kelompok4.praremaja_l.length + groupedData.kelompok4.remaja_l.length + groupedData.kelompok4.pranikah_l.length + groupedData.kelompok4.menikah_l.length + groupedData.kelompok4.duda.length + groupedData.kelompok4.balita_p.length + groupedData.kelompok4.paud_p.length + groupedData.kelompok4.caberawit_p.length + groupedData.kelompok4.praremaja_p.length + groupedData.kelompok4.remaja_p.length + groupedData.kelompok4.pranikah_p.length + groupedData.kelompok4.menikah_p.length + groupedData.kelompok4.janda.length,
                     totalBalitaLKelompok4: groupedData.kelompok4.balita_l.length,
                     totalBalitaPKelompok4: groupedData.kelompok4.balita_p.length,
+                    totalPaudLKelompok4: groupedData.kelompok4.paud_l.length,
+                    totalPaudPKelompok4: groupedData.kelompok4.paud_p.length,
                     totalCabeRawitLKelompok4: groupedData.kelompok4.caberawit_l.length,
                     totalCabeRawitPKelompok4: groupedData.kelompok4.caberawit_p.length,
                     totalPraRemajaLKelompok4: groupedData.kelompok4.praremaja_l.length,
@@ -401,11 +417,13 @@ const TotalSensus = () => {
                     totalJandaKelompok4: groupedData.kelompok4.janda.length,
 
                     // KELOMPOK 5
-                    totalLakiKelompok5: groupedData.kelompok5.balita_l.length + groupedData.kelompok5.caberawit_l.length + groupedData.kelompok5.praremaja_l.length + groupedData.kelompok5.remaja_l.length + groupedData.kelompok5.pranikah_l.length + groupedData.kelompok5.menikah_l.length + groupedData.kelompok5.duda.length,
-                    totalPerempuanKelompok5: groupedData.kelompok5.balita_p.length + groupedData.kelompok5.caberawit_p.length + groupedData.kelompok5.praremaja_p.length + groupedData.kelompok5.remaja_p.length + groupedData.kelompok5.pranikah_p.length + groupedData.kelompok5.menikah_p.length + groupedData.kelompok5.janda.length,
-                    totalKeseluruhanKelompok5: groupedData.kelompok5.balita_l.length + groupedData.kelompok5.caberawit_l.length + groupedData.kelompok5.praremaja_l.length + groupedData.kelompok5.remaja_l.length + groupedData.kelompok5.pranikah_l.length + groupedData.kelompok5.menikah_l.length + groupedData.kelompok5.duda.length + groupedData.kelompok5.balita_p.length + groupedData.kelompok5.caberawit_p.length + groupedData.kelompok5.praremaja_p.length + groupedData.kelompok5.remaja_p.length + groupedData.kelompok5.pranikah_p.length + groupedData.kelompok5.menikah_p.length + groupedData.kelompok5.janda.length,
+                    totalLakiKelompok5: groupedData.kelompok5.balita_l.length + groupedData.kelompok5.paud_l.length + groupedData.kelompok5.caberawit_l.length + groupedData.kelompok5.praremaja_l.length + groupedData.kelompok5.remaja_l.length + groupedData.kelompok5.pranikah_l.length + groupedData.kelompok5.menikah_l.length + groupedData.kelompok5.duda.length,
+                    totalPerempuanKelompok5: groupedData.kelompok5.balita_p.length + groupedData.kelompok5.paud_p.length + groupedData.kelompok5.caberawit_p.length + groupedData.kelompok5.praremaja_p.length + groupedData.kelompok5.remaja_p.length + groupedData.kelompok5.pranikah_p.length + groupedData.kelompok5.menikah_p.length + groupedData.kelompok5.janda.length,
+                    totalKeseluruhanKelompok5: groupedData.kelompok5.balita_l.length + groupedData.kelompok5.paud_l.length + groupedData.kelompok5.caberawit_l.length + groupedData.kelompok5.praremaja_l.length + groupedData.kelompok5.remaja_l.length + groupedData.kelompok5.pranikah_l.length + groupedData.kelompok5.menikah_l.length + groupedData.kelompok5.duda.length + groupedData.kelompok5.balita_p.length + groupedData.kelompok5.paud_p.length + groupedData.kelompok5.caberawit_p.length + groupedData.kelompok5.praremaja_p.length + groupedData.kelompok5.remaja_p.length + groupedData.kelompok5.pranikah_p.length + groupedData.kelompok5.menikah_p.length + groupedData.kelompok5.janda.length,
                     totalBalitaLKelompok5: groupedData.kelompok5.balita_l.length,
                     totalBalitaPKelompok5: groupedData.kelompok5.balita_p.length,
+                    totalPaudLKelompok5: groupedData.kelompok5.paud_l.length,
+                    totalPaudPKelompok5: groupedData.kelompok5.paud_p.length,
                     totalCabeRawitLKelompok5: groupedData.kelompok5.caberawit_l.length,
                     totalCabeRawitPKelompok5: groupedData.kelompok5.caberawit_p.length,
                     totalPraRemajaLKelompok5: groupedData.kelompok5.praremaja_l.length,
@@ -422,6 +440,8 @@ const TotalSensus = () => {
                     // DESA
                     totalBalita_lDesa,
                     totalBalita_pDesa,
+                    totalPaud_lDesa,
+                    totalPaud_pDesa,
                     totalCaberawit_lDesa,
                     totalCaberawit_pDesa,
                     totalPraremaja_lDesa,

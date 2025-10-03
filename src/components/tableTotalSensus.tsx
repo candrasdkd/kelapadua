@@ -26,8 +26,8 @@ const TabelSensus: React.FC<TableProps> = forwardRef(({ jumlahJenjang, jumlahKK,
         const jumlahBinaanPerempuan = jumlahBinaan?.kelompok1.p + jumlahBinaan?.kelompok2.p + jumlahBinaan?.kelompok3.p + jumlahBinaan?.kelompok4.p + jumlahBinaan?.kelompok5.p;
         const totalKeluargaDuafa = jumlahDuafa?.totalKeluargaKelompok1 + jumlahDuafa?.totalKeluargaKelompok2 + jumlahDuafa?.totalKeluargaKelompok3 + jumlahDuafa?.totalKeluargaKelompok4 + jumlahDuafa?.totalKeluargaKelompok5;
         const totalJiwaDuafa = jumlahDuafa?.totalJiwaKelompok1 + jumlahDuafa?.totalJiwaKelompok2 + jumlahDuafa?.totalJiwaKelompok3 + jumlahDuafa?.totalJiwaKelompok4 + jumlahDuafa?.totalJiwaKelompok5;
-        const totalLakiDesa = jumlahJenjang?.totalBalita_lDesa + jumlahJenjang?.totalCaberawit_lDesa + jumlahJenjang?.totalPraremaja_lDesa + jumlahJenjang?.totalRemaja_lDesa + jumlahJenjang?.totalPraNikah_lDesa + jumlahJenjang?.totalMenikah_lDesa + jumlahJenjang?.totalDudaDesa;
-        const totalPerempuanDesa = jumlahJenjang?.totalBalita_pDesa + jumlahJenjang?.totalCaberawit_pDesa + jumlahJenjang?.totalPraremaja_pDesa + jumlahJenjang?.totalRemaja_pDesa + jumlahJenjang?.totalPraNikah_pDesa + jumlahJenjang?.totalMenikah_pDesa + jumlahJenjang?.totalJandaDesa;
+        const totalLakiDesa = jumlahJenjang?.totalBalita_lDesa + jumlahJenjang?.totalPaud_lDesa + jumlahJenjang?.totalCaberawit_lDesa + jumlahJenjang?.totalPraremaja_lDesa + jumlahJenjang?.totalRemaja_lDesa + jumlahJenjang?.totalPraNikah_lDesa + jumlahJenjang?.totalMenikah_lDesa + jumlahJenjang?.totalDudaDesa;
+        const totalPerempuanDesa = jumlahJenjang?.totalBalita_pDesa + jumlahJenjang?.totalPaud_pDesa + jumlahJenjang?.totalCaberawit_pDesa + jumlahJenjang?.totalPraremaja_pDesa + jumlahJenjang?.totalRemaja_pDesa + jumlahJenjang?.totalPraNikah_pDesa + jumlahJenjang?.totalMenikah_pDesa + jumlahJenjang?.totalJandaDesa;
         const totalKeseluruhanKK = jumlahKartuKeluargaK1 + jumlahKartuKeluargaK2 + jumlahKartuKeluargaK3 + jumlahKartuKeluargaK4 + jumlahKartuKeluargaK5;
         const totalKeselurhanSensus = jumlahJenjang?.totalKeseluruhanKelompok1 + jumlahJenjang?.totalKeseluruhanKelompok2 + jumlahJenjang?.totalKeseluruhanKelompok3 + jumlahJenjang?.totalKeseluruhanKelompok4 + jumlahJenjang?.totalKeseluruhanKelompok5;
 
@@ -43,7 +43,7 @@ const TabelSensus: React.FC<TableProps> = forwardRef(({ jumlahJenjang, jumlahKK,
                         </tr>
                         <tr style={{ fontSize: 14, border: '1px solid black', }}>
                             <th style={{ border: '1px solid black' }} className='color-table-1' rowSpan={3}>Kelompok</th>
-                            <th style={{ border: '1px solid black' }} className='color-table-2' colSpan={10}>Belum Menikah</th>
+                            <th style={{ border: '1px solid black' }} className='color-table-2' colSpan={12}>Belum Menikah</th>
                             <th style={{ border: '1px solid black' }} className='color-table-3' colSpan={2} rowSpan={2}>Menikah</th>
                             <th style={{ border: '1px solid black' }} className='color-table-1' colSpan={2} rowSpan={2}>Duda / Janda</th>
                             <th style={{ border: '1px solid black' }} className='color-table-1' colSpan={2} rowSpan={2}>Jumlah</th>
@@ -56,12 +56,15 @@ const TabelSensus: React.FC<TableProps> = forwardRef(({ jumlahJenjang, jumlahKK,
                         </tr>
                         <tr style={{ fontSize: 14, border: '1px solid black' }}>
                             <th style={{ border: '1px solid black' }} className='color-table-2' colSpan={2}>Balita</th>
-                            <th style={{ border: '1px solid black' }} className='color-table-2' colSpan={2}>Cabe Rawit</th>
+                            <th style={{ border: '1px solid black' }} className='color-table-2' colSpan={2}>Paud</th>
+                            <th style={{ border: '1px solid black' }} className='color-table-2' colSpan={2}>Caberawit</th>
                             <th style={{ border: '1px solid black' }} className='color-table-2' colSpan={2}>Pra Remaja</th>
                             <th style={{ border: '1px solid black' }} className='color-table-2' colSpan={2}>Remaja</th>
                             <th style={{ border: '1px solid black' }} className='color-table-2' colSpan={2}>Dewasa</th>
                         </tr>
                         <tr style={{ fontSize: 14, border: '1px solid black' }}>
+                            <th style={{ border: '1px solid black' }} className='color-table-2' >L</th>
+                            <th style={{ border: '1px solid black' }} className='color-table-2' >P</th>
                             <th style={{ border: '1px solid black' }} className='color-table-2' >L</th>
                             <th style={{ border: '1px solid black' }} className='color-table-2' >P</th>
                             <th style={{ border: '1px solid black' }} className='color-table-2' >L</th>
@@ -88,6 +91,8 @@ const TabelSensus: React.FC<TableProps> = forwardRef(({ jumlahJenjang, jumlahKK,
                             <td style={{ border: '1px solid black', width: 100, height: 20 }}>Kelompok 1</td>
                             <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok1.balita_l.length}</td>
                             <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok1.balita_p.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok1.paud_l.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok1.paud_p.length}</td>
                             <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok1.caberawit_l.length}</td>
                             <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok1.caberawit_p.length}</td>
                             <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok1.praremaja_l.length}</td>
@@ -120,6 +125,7 @@ const TabelSensus: React.FC<TableProps> = forwardRef(({ jumlahJenjang, jumlahKK,
                         <tr style={{ border: '1px solid black' }}>
                             <td style={{ border: '1px solid black', height: 20 }} className='color-table-5'>Jumlah</td>
                             <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalBalitaLKelompok1 + jumlahJenjang.totalBalitaPKelompok1}</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalPaudLKelompok1 + jumlahJenjang.totalPaudPKelompok1}</td>
                             <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalCabeRawitLKelompok1 + jumlahJenjang.totalCabeRawitPKelompok1}</td>
                             <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalPraRemajaLKelompok1 + jumlahJenjang.totalPraRemajaPKelompok1}</td>
                             <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalRemajaLKelompok1 + jumlahJenjang.totalRemajaPKelompok1}</td>
@@ -134,6 +140,8 @@ const TabelSensus: React.FC<TableProps> = forwardRef(({ jumlahJenjang, jumlahKK,
                             <td style={{ border: '1px solid black', width: 100, height: 20 }}>Kelompok 2</td>
                             <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok2.balita_l.length}</td>
                             <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok2.balita_p.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok2.paud_l.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok2.paud_p.length}</td>
                             <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok2.caberawit_l.length}</td>
                             <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok2.caberawit_p.length}</td>
                             <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok2.praremaja_l.length}</td>
@@ -156,6 +164,7 @@ const TabelSensus: React.FC<TableProps> = forwardRef(({ jumlahJenjang, jumlahKK,
                         <tr style={{ textAlign: 'center' }}>
                             <td style={{ border: '1px solid black', height: 20 }} className='color-table-5'>Jumlah</td>
                             <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalBalitaLKelompok2 + jumlahJenjang.totalBalitaPKelompok2}</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalPaudLKelompok2 + jumlahJenjang.totalPaudPKelompok2}</td>
                             <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalCabeRawitLKelompok2 + jumlahJenjang.totalCabeRawitPKelompok2}</td>
                             <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalPraRemajaLKelompok2 + jumlahJenjang.totalPraRemajaPKelompok2}</td>
                             <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalRemajaLKelompok2 + jumlahJenjang.totalRemajaPKelompok2}</td>
@@ -170,6 +179,8 @@ const TabelSensus: React.FC<TableProps> = forwardRef(({ jumlahJenjang, jumlahKK,
                             <td style={{ border: '1px solid black', width: 100, height: 20 }}>Kelompok 3</td>
                             <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok3.balita_l.length}</td>
                             <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok3.balita_p.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok3.paud_l.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok3.paud_p.length}</td>
                             <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok3.caberawit_l.length}</td>
                             <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok3.caberawit_p.length}</td>
                             <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok3.praremaja_l.length}</td>
@@ -192,6 +203,7 @@ const TabelSensus: React.FC<TableProps> = forwardRef(({ jumlahJenjang, jumlahKK,
                         <tr style={{ textAlign: 'center' }}>
                             <td style={{ border: '1px solid black', height: 20 }} className='color-table-5'>Jumlah</td>
                             <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalBalitaLKelompok3 + jumlahJenjang.totalBalitaPKelompok3}</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalPaudLKelompok3 + jumlahJenjang.totalPaudPKelompok3}</td>
                             <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalCabeRawitLKelompok3 + jumlahJenjang.totalCabeRawitPKelompok3}</td>
                             <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalPraRemajaLKelompok3 + jumlahJenjang.totalPraRemajaPKelompok3}</td>
                             <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalRemajaLKelompok3 + jumlahJenjang.totalRemajaPKelompok3}</td>
@@ -201,11 +213,12 @@ const TabelSensus: React.FC<TableProps> = forwardRef(({ jumlahJenjang, jumlahKK,
                             <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalLakiKelompok3 + jumlahJenjang.totalPerempuanKelompok3}</td>
                             <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahBinaanKelompok3}</td>
                         </tr>
-
                         <tr>
                             <td style={{ border: '1px solid black', width: 100, height: 20 }}>Kelompok 4</td>
                             <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok4.balita_l.length}</td>
                             <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok4.balita_p.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok4.paud_l.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok4.paud_p.length}</td>
                             <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok4.caberawit_l.length}</td>
                             <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok4.caberawit_p.length}</td>
                             <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok4.praremaja_l.length}</td>
@@ -228,6 +241,7 @@ const TabelSensus: React.FC<TableProps> = forwardRef(({ jumlahJenjang, jumlahKK,
                         <tr>
                             <td style={{ border: '1px solid black', height: 20 }} className='color-table-5'>Jumlah</td>
                             <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalBalitaLKelompok4 + jumlahJenjang.totalBalitaPKelompok4}</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalPaudLKelompok4 + jumlahJenjang.totalPaudPKelompok4}</td>
                             <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalCabeRawitLKelompok4 + jumlahJenjang.totalCabeRawitPKelompok4}</td>
                             <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalPraRemajaLKelompok4 + jumlahJenjang.totalPraRemajaPKelompok4}</td>
                             <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalRemajaLKelompok4 + jumlahJenjang.totalRemajaPKelompok4}</td>
@@ -242,6 +256,8 @@ const TabelSensus: React.FC<TableProps> = forwardRef(({ jumlahJenjang, jumlahKK,
                             <td style={{ border: '1px solid black', width: 100, height: 20 }}>Kelompok 5</td>
                             <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok5.balita_l.length}</td>
                             <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok5.balita_p.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok5.paud_l.length}</td>
+                            <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok5.paud_p.length}</td>
                             <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok5.caberawit_l.length}</td>
                             <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok5.caberawit_p.length}</td>
                             <td style={{ border: '1px solid black' }}>{jumlahJenjang.kelompok5.praremaja_l.length}</td>
@@ -264,6 +280,7 @@ const TabelSensus: React.FC<TableProps> = forwardRef(({ jumlahJenjang, jumlahKK,
                         <tr>
                             <td style={{ border: '1px solid black', height: 20 }} className='color-table-5'>Jumlah</td>
                             <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalBalitaLKelompok5 + jumlahJenjang.totalBalitaPKelompok5}</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalPaudLKelompok5 + jumlahJenjang.totalPaudPKelompok5}</td>
                             <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalCabeRawitLKelompok5 + jumlahJenjang.totalCabeRawitPKelompok5}</td>
                             <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalPraRemajaLKelompok5 + jumlahJenjang.totalPraRemajaPKelompok5}</td>
                             <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalRemajaLKelompok5 + jumlahJenjang.totalRemajaPKelompok5}</td>
@@ -278,6 +295,8 @@ const TabelSensus: React.FC<TableProps> = forwardRef(({ jumlahJenjang, jumlahKK,
                             <td className='color-table-4' style={{ border: '1px solid black', height: 20 }}>Jumlah L/P</td>
                             <td style={{ border: '1px solid black' }} className='color-table-4'>{jumlahJenjang.totalBalita_lDesa}</td>
                             <td style={{ border: '1px solid black' }} className='color-table-4'>{jumlahJenjang.totalBalita_pDesa}</td>
+                            <td style={{ border: '1px solid black' }} className='color-table-4'>{jumlahJenjang.totalPaud_lDesa}</td>
+                            <td style={{ border: '1px solid black' }} className='color-table-4'>{jumlahJenjang.totalPaud_pDesa}</td>
                             <td style={{ border: '1px solid black' }} className='color-table-4'>{jumlahJenjang.totalCaberawit_lDesa}</td>
                             <td style={{ border: '1px solid black' }} className='color-table-4'>{jumlahJenjang.totalCaberawit_pDesa}</td>
                             <td style={{ border: '1px solid black' }} className='color-table-4'>{jumlahJenjang.totalPraremaja_lDesa}</td>
@@ -301,6 +320,7 @@ const TabelSensus: React.FC<TableProps> = forwardRef(({ jumlahJenjang, jumlahKK,
                         <tr style={{ fontWeight: "bold" }}>
                             <td style={{ textAlign: 'center', border: '1px solid black', height: 20 }} className='color-table-5'>Total</td>
                             <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalBalita_lDesa + jumlahJenjang.totalBalita_pDesa}</td>
+                            <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalPaud_lDesa + jumlahJenjang.totalPaud_pDesa}</td>
                             <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalCaberawit_lDesa + jumlahJenjang.totalCaberawit_pDesa}</td>
                             <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalPraremaja_lDesa + jumlahJenjang.totalPraremaja_pDesa}</td>
                             <td colSpan={2} style={{ border: '1px solid black', width: 80 }} className='color-table-5'>{jumlahJenjang.totalRemaja_lDesa + jumlahJenjang.totalRemaja_pDesa}</td>
@@ -318,7 +338,8 @@ const TabelSensus: React.FC<TableProps> = forwardRef(({ jumlahJenjang, jumlahKK,
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
                             <div>
                                 <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>Balita</p>
-                                <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>Cabe Rawit</p>
+                                <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>Paud</p>
+                                <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>Caberawit</p>
                                 <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>Pra Remaja</p>
                                 <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>Remaja</p>
                                 <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>Dewasa</p>
@@ -333,9 +354,11 @@ const TabelSensus: React.FC<TableProps> = forwardRef(({ jumlahJenjang, jumlahKK,
                                 <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>:</p>
                                 <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>:</p>
                                 <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>:</p>
+                                <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>:</p>
                             </div>
                             <div style={{ marginLeft: 20 }}>
-                                <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>0 - 5 Tahun (5 - 6 Tahun/PAUD)</p>
+                                <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>0 - 3 Tahun</p>
+                                <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>4 - 5 Tahun</p>
                                 <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>6/7 - 12/13 Tahun (SD)</p>
                                 <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>12/13 - 15/16 Tahun (SMP)</p>
                                 <p style={{ padding: 0, margin: 0, marginTop: 5, fontSize: 12 }}>15/16 - 18/19 Tahun (SMA)</p>
